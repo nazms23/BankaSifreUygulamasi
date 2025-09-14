@@ -16,6 +16,7 @@ const Kart = () => {
                 style={[{flex:1}, {backgroundColor: colors?.background}] }
                 contentContainerStyle={{padding:16,paddingBottom:60}}
             />
+            <KartListItem/>
             <FAB.Group 
                 open={isFabOpen}
                 onStateChange={(open) => setIsFabOpen(open.open)}

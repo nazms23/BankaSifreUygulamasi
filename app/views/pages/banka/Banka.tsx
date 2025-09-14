@@ -11,11 +11,13 @@ const Banka = () => {
   return (
     <>
         <FlatList 
-            data={[]}
+            data={[1]}
             renderItem={(i) => <BankaListItem text={i.item} />}
-            style={[{flex:1}, {backgroundColor: colors?.background}] }
-            contentContainerStyle={{padding:16,paddingBottom:60}}
+            style={[{flex:0}, {backgroundColor: colors?.background} ] }
+            contentContainerStyle={{padding:10,paddingBottom:10}}
         />
+        
+
         <FAB.Group 
             open={isFabOpen}
             onStateChange={(open) => setIsFabOpen(open.open)}
