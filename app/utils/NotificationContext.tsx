@@ -4,7 +4,7 @@ import { NotificationType } from './types'
 
 
 interface NotificationContextType {
-    showNotification: (type: NotificationType, description: string) => void
+    showNotification: (type: NotificationType, description: string, useOkCancelButtons?: boolean, onOk?: () => void) => void
 }
 
 export const NotificationContext = createContext<NotificationContextType>({showNotification: () => {}})
@@ -13,15 +13,30 @@ export const NotificationContext = createContext<NotificationContextType>({showN
 export const NotificationContextProvider = ({children}: {children: ReactNode}) => {
     const [visible, setVisible] = React.useState(false);
     const showDialog = () => setVisible(true);
-    const hideDialog = () => setVisible(false);
+    const hideDialog = () => {
+        setVisible(false)
+        setDescription("")
+        setType(null)
+        setUseOkCancelButtons(false)
+        setOnOk(() => {})
+    };
 
     const [description, setDescription] = useState("")
+    const [useOkCancelButtons, setUseOkCancelButtons] = useState<boolean | undefined>(false)
+    const [onOk, setOnOk] = useState<() => void>(() => {})
     const [type, setType] = useState<NotificationType | null>()
 
-    function showNotification(type: NotificationType, description: string) {
+    function showNotification(type: NotificationType, description: string, useOkCancelButtons?: boolean, onOkFunction?: () => void) {
         setDescription(description)
         setType(type)
+        setUseOkCancelButtons(useOkCancelButtons)
+        setOnOk(() => onOkFunction)
         showDialog()
+    }
+
+    function handleOk() {
+        hideDialog()
+        onOk()
     }
 
   return (
@@ -34,7 +49,14 @@ export const NotificationContextProvider = ({children}: {children: ReactNode}) =
                         <Text variant="bodyMedium">{description}</Text>
                     </Dialog.Content>
                 <Dialog.Actions>
-                    <Button onPress={hideDialog}>Tamam</Button>
+                    {
+                        !useOkCancelButtons ?
+                        <Button onPress={hideDialog}>Tamam</Button> :
+                        <>
+                            <Button onPress={hideDialog}>Iptal</Button>
+                            <Button onPress={handleOk}>Tamam</Button>
+                        </>
+                    }
                 </Dialog.Actions>
             </Dialog>
         </Portal>

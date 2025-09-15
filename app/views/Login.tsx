@@ -44,11 +44,39 @@ const Login = () => {
       return result.success;
     }
 
+    function handleResetData() {
+      setFunctions.resetAllSettings()
+    }
+
+    async function handleForgetPassword() {
+      const hasHardware = await LocalAuthentication.hasHardwareAsync();
+
+      const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+
+      if(!hasHardware || !isEnrolled){
+        showNotification(NotificationType.Error, "Biyometrik doğrulama kullanılamıyor! Bunun yerine tüm verilerinizi sıfırlamak ister misiniz?", true, handleResetData)
+        return
+      }
+
+      const result = await LocalAuthentication.authenticateAsync({
+        promptMessage: "Biyometrik doğrulama",
+        fallbackLabel: "Şifre gir",
+        disableDeviceFallback: false,
+      });
+
+      if(result.success) setFunctions.setIsLogined(true)
+      else showNotification(NotificationType.Error, "Biyometrik doğrulama başarısız!")
+    }
+
     useEffect(() => {
       login.loginMethod == LoginMethods.biometric && authenticateWithBiometrics().then(result => {
         if(result)
         {
           setFunctions.setIsLogined(true)
+        }
+        else
+        {
+          showNotification(NotificationType.Error, "Biyometrik doğrulama başarısız!")
         }
       })
     }, [])
@@ -67,6 +95,7 @@ const Login = () => {
             secureTextEntry
           />
           <Button mode='contained-tonal' onPress={handleLogin}>Giriş</Button>
+          <Button onPress={handleForgetPassword}>Şifremi Unuttum</Button>
         </Card>
       </View>
     )

@@ -24,7 +24,8 @@ interface SetFunctionsType{
     setPassword: (password: string) => Promise<void>,
     setLoginMethod: (loginMethod: LoginMethods) => Promise<void>,
     setFontSize: (fontSize: FontSizes) => Promise<void>,
-    setTheme: (theme: Theme) => Promise<void>
+    setTheme: (theme: Theme) => Promise<void>,
+    resetAllSettings: () => Promise<void>
 }
 
 const MainContextDefault: MainContextType = {
@@ -44,6 +45,7 @@ const MainContextDefault: MainContextType = {
         setLoginMethod: async () => {},
         setFontSize: async () => {},
         setTheme: async () => {},
+        resetAllSettings: async () => {}
     }
 }
 
@@ -63,7 +65,7 @@ export const MainContextProvider = ({children}: {children: ReactNode}) => {
         }));
     }
 
-    async function getLoginMetgod(): Promise<LoginMethods> {
+    async function getLoginMethod(): Promise<LoginMethods> {
         const value = await SecureStore.getItemAsync('loginMethod') ?? LoginMethods.none
         return (value as LoginMethods) 
     }
@@ -109,8 +111,14 @@ export const MainContextProvider = ({children}: {children: ReactNode}) => {
         }));
     }
 
+    async function resetAllSettings() {
+        await Promise.all([SecureStore.deleteItemAsync('password'),SecureStore.deleteItemAsync('loginMethod'),AsyncStorage.clear()]).then(() => {
+            getAllSetting()
+        })
+    }
+
     async function getAllSetting() {
-        const [sPassword, loginMethod, sFontSize, sTheme]: [string,LoginMethods,FontSizes,Theme] = await Promise.all([getPassword(),getLoginMetgod(),getFontSize(),getTheme()])
+        const [sPassword, loginMethod, sFontSize, sTheme]: [string,LoginMethods,FontSizes,Theme] = await Promise.all([getPassword(),getLoginMethod(),getFontSize(),getTheme()])
 
         const MainContextData: MainContextType = {
             isAllLoaded: true,
@@ -128,7 +136,8 @@ export const MainContextProvider = ({children}: {children: ReactNode}) => {
                 setFontSize,
                 setTheme,
                 setIsLogined,
-                setLoginMethod
+                setLoginMethod,
+                resetAllSettings
             }
         }
 
