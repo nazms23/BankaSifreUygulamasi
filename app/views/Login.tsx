@@ -1,13 +1,14 @@
 import { View } from 'react-native'
-import React, { useContext, useState } from 'react'
-import { NotificationType, Theme } from '../utils/types'
+import React, { useContext, useEffect, useState } from 'react'
+import { LoginMethods, NotificationType, Theme } from '../utils/types'
 import { Button, useTheme, TextInput, Card } from 'react-native-paper'
 import { MainContext } from '../utils/MainContext'
 import PageLoading from './components/PageLoading'
 import { NotificationContext } from '../utils/NotificationContext'
+import * as LocalAuthentication from "expo-local-authentication";
 
 const Login = () => {
-    const {login,settings,setFunctions} = useContext(MainContext)
+    const {login,setFunctions} = useContext(MainContext)
     const {showNotification} = useContext(NotificationContext)
     const {colors} = useTheme()
 
@@ -27,10 +28,30 @@ const Login = () => {
       }
     }
 
-    function handleTema()
-    {
-      setFunctions.setTheme(settings.theme == Theme.dark ? Theme.light : Theme.dark)
+    async function authenticateWithBiometrics(): Promise<boolean> {
+      const hasHardware = await LocalAuthentication.hasHardwareAsync();
+      if (!hasHardware) return false;
+
+      const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+      if (!isEnrolled) return false;
+
+      const result = await LocalAuthentication.authenticateAsync({
+        promptMessage: "Biyometrik doğrulama",
+        fallbackLabel: "Şifre gir",
+        disableDeviceFallback: false,
+      });
+
+      return result.success;
     }
+
+    useEffect(() => {
+      login.loginMethod == LoginMethods.biometric && authenticateWithBiometrics().then(result => {
+        if(result)
+        {
+          setFunctions.setIsLogined(true)
+        }
+      })
+    }, [])
 
     return (
       <View style={[{flex:1, justifyContent:"center"}, {backgroundColor: colors?.background}]} >
@@ -46,7 +67,6 @@ const Login = () => {
             secureTextEntry
           />
           <Button mode='contained-tonal' onPress={handleLogin}>Giriş</Button>
-          <Button mode='contained' onPress={handleTema}>Tema değiştir</Button>
         </Card>
       </View>
     )
