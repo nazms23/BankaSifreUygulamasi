@@ -19,3 +19,9 @@ export enum NotificationType{
   Error = "Uyarı",
   Info = "Bilgi"
 }
+
+export enum LoginMethods{
+  password = "password",
+  biometric = "biometric",
+  none = "none"
+}

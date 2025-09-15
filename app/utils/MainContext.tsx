@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useEffect, useState } from "react";
-import { FontSizes, Theme } from "./types";
+import { FontSizes, LoginMethods, Theme } from "./types";
 import * as SecureStore from 'expo-secure-store'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -12,38 +12,38 @@ interface MainContextType {
 
 interface LoginType {
     isLogined: boolean
-    password: string
+    password: string,
+    loginMethod: LoginMethods
 };
 interface SettingsType{
     fontSize: FontSizes,
-    theme: Theme,
-    useBiometricAuth: boolean
+    theme: Theme
 }
 interface SetFunctionsType{
     setIsLogined: (isLogined: boolean) => Promise<void>,
     setPassword: (password: string) => Promise<void>,
+    setLoginMethod: (loginMethod: LoginMethods) => Promise<void>,
     setFontSize: (fontSize: FontSizes) => Promise<void>,
-    setTheme: (theme: Theme) => Promise<void>,
-    setUseBiometricAuth: (useBiometricAuth: boolean) => Promise<void>,
+    setTheme: (theme: Theme) => Promise<void>
 }
 
 const MainContextDefault: MainContextType = {
     isAllLoaded: false,
     login: {
         isLogined: false,
-        password: "1234"
+        password: "",
+        loginMethod: LoginMethods.none
     },
     settings: {
         fontSize: FontSizes.default,
-        theme: Theme.light,
-        useBiometricAuth: false
+        theme: Theme.light
     },
     setFunctions: {
         setIsLogined: async () => {},
         setPassword: async () => {},
+        setLoginMethod: async () => {},
         setFontSize: async () => {},
         setTheme: async () => {},
-        setUseBiometricAuth: async () => {},
     }
 }
 
@@ -53,13 +53,25 @@ export const MainContextProvider = ({children}: {children: ReactNode}) => {
     const [mainContextState, setMainContextState] = useState<MainContextType>(MainContextDefault)
 
     async function getPassword(): Promise<string> {
-        return await SecureStore.getItemAsync('password') ?? "1234"
+        return await SecureStore.getItemAsync('password') ?? ""
     }
     async function setPassword(password: string) {
         await SecureStore.setItemAsync('password', password);
         setMainContextState(prev => ({
             ...prev,
             login: { ...prev.login, password },
+        }));
+    }
+
+    async function getLoginMetgod(): Promise<LoginMethods> {
+        const value = await SecureStore.getItemAsync('loginMethod') ?? LoginMethods.none
+        return (value as LoginMethods) 
+    }
+    async function setLoginMethod(loginMethod: LoginMethods) {
+        await SecureStore.setItemAsync('loginMethod', loginMethod.toString());
+        setMainContextState(prev => ({
+            ...prev,
+            login: { ...prev.login, loginMethod },
         }));
     }
 
@@ -86,17 +98,6 @@ export const MainContextProvider = ({children}: {children: ReactNode}) => {
             settings: { ...prev.settings, theme },
         }));
     }
-    
-    async function getUseBiometric(): Promise<boolean> {
-        return await AsyncStorage.getItem('useBiometric') === "true"
-    }
-    async function setUseBiometricAuth(useBiometric: boolean) {
-        await AsyncStorage.setItem('useBiometric', useBiometric ? "true" : "false");
-        setMainContextState(prev => ({
-            ...prev,
-            settings: { ...prev.settings, useBiometricAuth: useBiometric },
-        }));
-    }
 
     async function setIsLogined(isLogined: boolean) {
         setMainContextState(prev => ({
@@ -109,25 +110,25 @@ export const MainContextProvider = ({children}: {children: ReactNode}) => {
     }
 
     async function getAllSetting() {
-        const [sPassword, sFontSize, sTheme, sUseBiometric]: [string,FontSizes,Theme,boolean] = await Promise.all([getPassword(),getFontSize(),getTheme(),getUseBiometric()])
+        const [sPassword, loginMethod, sFontSize, sTheme]: [string,LoginMethods,FontSizes,Theme] = await Promise.all([getPassword(),getLoginMetgod(),getFontSize(),getTheme()])
 
         const MainContextData: MainContextType = {
             isAllLoaded: true,
             login: {
-                isLogined: false,
-                password: sPassword
+                isLogined: loginMethod == LoginMethods.none,
+                password: sPassword,
+                loginMethod: loginMethod
             },
             settings: {
                 fontSize: sFontSize,
-                theme: sTheme,
-                useBiometricAuth: sUseBiometric
+                theme: sTheme
             },
             setFunctions: {
                 setPassword,
                 setFontSize,
                 setTheme,
                 setIsLogined,
-                setUseBiometricAuth
+                setLoginMethod
             }
         }
 
