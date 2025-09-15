@@ -27,12 +27,29 @@ const GuvenlikAyarlar = () => {
     setPasswordValue("")
   }
 
+  function handleChangeUseBiometric(value: string)
+  {
+    if(value == "yok")
+    {
+      setFunctions.setUseBiometricAuth(false)
+      setFunctions.setPassword("")
+    }
+    else
+    {
+      setFunctions.setUseBiometricAuth(value == "true")
+    }
+  }
+
   return (
     <View style={[{flex:1, justifyContent:"flex-start", }, {backgroundColor: colors?.background}]}>
       <SegmentedButtons 
         value={settings.useBiometricAuth ? "true" : "false"}
-        onValueChange={(v) => setFunctions.setUseBiometricAuth(v == "true")}
+        onValueChange={handleChangeUseBiometric}
         buttons={[
+          {
+            label: "Yok",
+            value: "yok"
+          },
           {
             label: "Şifre",
             value: "false"

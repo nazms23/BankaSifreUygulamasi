@@ -31,7 +31,7 @@ const MainContextDefault: MainContextType = {
     isAllLoaded: false,
     login: {
         isLogined: false,
-        password: "1234"
+        password: ""
     },
     settings: {
         fontSize: FontSizes.default,
@@ -53,7 +53,7 @@ export const MainContextProvider = ({children}: {children: ReactNode}) => {
     const [mainContextState, setMainContextState] = useState<MainContextType>(MainContextDefault)
 
     async function getPassword(): Promise<string> {
-        return await SecureStore.getItemAsync('password') ?? "1234"
+        return await SecureStore.getItemAsync('password') ?? ""
     }
     async function setPassword(password: string) {
         await SecureStore.setItemAsync('password', password);
@@ -114,7 +114,7 @@ export const MainContextProvider = ({children}: {children: ReactNode}) => {
         const MainContextData: MainContextType = {
             isAllLoaded: true,
             login: {
-                isLogined: false,
+                isLogined: sPassword == "",
                 password: sPassword
             },
             settings: {
