@@ -1,11 +1,12 @@
 import { View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { LoginMethods, NotificationType, Theme } from '../utils/types'
-import { Button, useTheme, TextInput, Card } from 'react-native-paper'
+import {Text, Button, useTheme, TextInput, Surface } from 'react-native-paper'
 import { MainContext } from '../utils/MainContext'
 import PageLoading from './components/PageLoading'
 import { NotificationContext } from '../utils/NotificationContext'
-import * as LocalAuthentication from "expo-local-authentication";
+import * as LocalAuthentication from "expo-local-authentication"
+import {stylesLogin} from '../.../../utils/styles'
 
 const Login = () => {
     const {login,setFunctions} = useContext(MainContext)
@@ -82,11 +83,14 @@ const Login = () => {
     }, [])
 
     return (
-      <View style={[{flex:1, justifyContent:"center"}, {backgroundColor: colors?.background}]} >
+     
+      <View style={[stylesLogin.container, {backgroundColor: colors?.background}]} >
         <PageLoading loading={isLoading} />
-        <Card>
+        <Surface style={stylesLogin.surface} elevation={5}>
+          <Text style={{fontWeight:900}} variant='headlineSmall'>BankApp</Text>
           <TextInput
-            label={"Şifre"}
+            style={stylesLogin.input}
+            label={"Açmak için şifreni gir."}
             value={passwordValue}
             onChangeText={text => setPasswordValue(text)}
             keyboardType='numeric'
@@ -94,9 +98,9 @@ const Login = () => {
             mode='outlined'
             secureTextEntry
           />
-          <Button mode='contained-tonal' onPress={handleLogin}>Giriş</Button>
-          <Button onPress={handleForgetPassword}>Şifremi Unuttum</Button>
-        </Card>
+          <Button style={stylesLogin.button} mode='contained' onPress={handleLogin}>Giriş Yap</Button>
+          <Button  style={stylesLogin.button} onPress={handleForgetPassword}>Şifremi Unuttum</Button>
+        </Surface>
       </View>
     )
 }
