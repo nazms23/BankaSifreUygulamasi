@@ -7,7 +7,11 @@ const Banka = () => {
     const [isFabOpen, setIsFabOpen] = useState(false)
 
     const {colors} = useTheme();
+    const [state, setState] = React.useState({ open: false });
 
+    const onStateChange = ({ open }) => setState({ open });
+
+    const { open } = state;
   return (
     <>
         <FlatList 
@@ -17,13 +21,36 @@ const Banka = () => {
             contentContainerStyle={{padding:10,paddingBottom:10}}
         />
         
-
-        <FAB.Group 
-            open={isFabOpen}
-            onStateChange={(open) => setIsFabOpen(open.open)}
-            visible
-            icon={'plus'}
-            actions={[]}
+      
+             <FAB.Group
+          open={open}
+          visible
+          icon={open ? 'arrow-up' : 'plus'}
+          actions={[
+            { 
+              icon: 'plus', onPress: () => console.log('Pressed add') },
+            {
+              icon: "delete",
+              label: 'Sil',
+              onPress: () => console.log('Pressed star'),
+            },
+            {
+              icon:  "circle-edit-outline",
+              label: 'Düzenle',
+              onPress: () => console.log('Pressed email'),
+            },
+            {
+              icon: 'delete-forever',
+              label: 'Hepsini Sil',
+              onPress: () => console.log('Pressed notifications'),
+            },
+          ]}
+          onStateChange={onStateChange}
+          onPress={() => {
+            if (open) {
+              // do something if the speed dial is open
+            }
+          }}
         />
     </>
   )

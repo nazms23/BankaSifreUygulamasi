@@ -1,7 +1,7 @@
 import { View, StyleSheet, Image } from 'react-native'
 import React from 'react'
 import {Surface, useTheme, Text,Card, CardProps, CardActionsProps, CardContentProps, CardCoverProps,CardTitleProps } from 'react-native-paper'
-
+import { stylesItems } from '../../utils/styles'
 interface KartListItemProps {
     text: string
 }
@@ -14,11 +14,11 @@ const KartListItem = ({text}: KartListItemProps) => {
 
         <View style={[{flex:1}, {backgroundColor: colors?.background}]}>
           <Card>
-            <View style={[styles.itemcont]}>
-                <Surface style={styles.surface} elevation={5}>
-                    <View style={styles.imagecont}><Image style={styles.image}  source={require('../../../assets/bankalar/garanti.png')} /></View>
+            <View style={[stylesItems.itemcont]}>
+                <Surface style={stylesItems.surface} elevation={5}>
+                    <View style={stylesItems.imagecont}><Image style={stylesItems.image}  source={require('../../../assets/bankalar/garanti.png')} /></View>
                     
-                    <Text style={styles.surfaceText}  variant="titleMedium">3169</Text>
+                    <Text style={stylesItems.surfaceText}  variant="titleMedium">3169</Text>
                 
                 </Surface>
             </View>
@@ -35,47 +35,3 @@ const KartListItem = ({text}: KartListItemProps) => {
 }
 
 export default KartListItem
-const styles = StyleSheet.create({
-  surface: {
-    padding: 8,
-    height: 80,
-    width: '100%',
-    borderRadius:12,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    
-  }, itemcont: {
-    
-    marginTop: 5,
-     
-    flexDirection: 'column',
-  
-   
-
-
- 
-
-  },
-  surfaceText:{
-    width: '70%',
-    marginRight: 50,
-    paddingLeft: 10,
-    paddingRight: 10,
-    textAlign: 'center',
-    fontSize: 25,
-  },
-  imagecont:{
-    backgroundColor: '#ffff',
-    padding: 5,
-    borderRadius: 6,
-     width: '30%',
-  }, image:{
-    width: '100%',
-    resizeMode: 'center',
-    height: '100%',
-    
-    
-    padding: 30,
-
-  },});
