@@ -92,13 +92,7 @@ const GuvenlikAyarlar = () => {
         :
         null
       }
-    </ScrollView>
-    
+    </ScrollView> 
   )
-   
-
-
 }
-
-
 export default GuvenlikAyarlar
