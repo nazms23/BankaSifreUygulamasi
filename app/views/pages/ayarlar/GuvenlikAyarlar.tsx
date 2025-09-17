@@ -1,11 +1,12 @@
-import { View } from 'react-native'
+import { View,ScrollView } from 'react-native'
 import React, { useContext, useState } from 'react'
-import { Button, SegmentedButtons, Text, TextInput, useTheme } from 'react-native-paper'
+import { Text , Surface, IconButton,Divider,Switch,Button,Tooltip, useTheme, TextInput } from 'react-native-paper'
 import { MainContext } from '../../../utils/MainContext'
 import { NotificationContext } from '../../../utils/NotificationContext'
+import { stylesSettings } from '../../../utils/styles'
 import { LoginMethods, NotificationType } from '../../../utils/types'
-
 const GuvenlikAyarlar = () => {
+
   const {colors} = useTheme()
   const [passwordValue, setPasswordValue] = useState("")
 
@@ -27,46 +28,71 @@ const GuvenlikAyarlar = () => {
     setPasswordValue("")
   }
 
-
   return (
-    <View style={[{flex:1, justifyContent:"flex-start", }, {backgroundColor: colors?.background}]}>
-      <SegmentedButtons 
-        value={login.loginMethod.toString()}
-        onValueChange={(v) => setFunctions.setLoginMethod((v) as LoginMethods)}
-        buttons={[
-          {
-            label: "Yok",
-            value: LoginMethods.none.toString()
-          },
-          {
-            label: "Şifre",
-            value: LoginMethods.password.toString()
-          },
-          {
-            label: "Biyometrik Doğrulama",
-            value: LoginMethods.biometric.toString()
-          }
-        ]}
-      />
+    <ScrollView style={stylesSettings.setting}>
+      <Surface style={stylesSettings.surface} elevation={5}>
+
+        <Text  variant="titleMedium">Giriş Seçenekleri</Text>
+        <Divider style={stylesSettings.divider} />
+        <View style={stylesSettings.switchbox} >
+          <Text  variant="titleSmall">Şifresiz giriş yap</Text>
+          
+          <Switch value={login.loginMethod == LoginMethods.none} onValueChange={() => setFunctions.setLoginMethod(LoginMethods.none)} />
+        </View>
+        <View style={stylesSettings.switchbox} >
+          <Text  variant="titleSmall">Şifre ile giriş yap</Text>
+          
+          <Switch value={login.loginMethod == LoginMethods.password} onValueChange={() => setFunctions.setLoginMethod(LoginMethods.password)} />
+        </View>
+        <View style={stylesSettings.switchbox} >
+          <Text  variant="titleSmall">Parmak izi ile giriş yap</Text>
+          
+          <Switch value={login.loginMethod == LoginMethods.biometric} onValueChange={() => setFunctions.setLoginMethod(LoginMethods.biometric)} />
+        </View>
+
+      </Surface>
+  
+      {/* <Surface style={stylesSettings.surface} elevation={5}>
+
+        <Text  variant="titleMedium">Bildirim Ayarları</Text>
+        <Divider style={stylesSettings.divider} />
+        <View style={stylesSettings.switchbox} >
+          <Text  variant="titleSmall">Bildirimlere izin ver</Text>
+          
+          <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
+        </View>
+         <Tooltip  title="Şifrelerinin süresi yaklaştığında bildirim alacaksın!" enterTouchDelay={0} leaveTouchDelay={5500} >
+        <View style={stylesSettings.switchbox} >
+          <Text  variant="titleSmall">Süresi yaklaşan şifreler</Text>
+           <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
+        </View>
+        </Tooltip>
+      </Surface> */}
+
       {
-        login.loginMethod == LoginMethods.password ? 
-          <>
-            <TextInput 
-              label={"Şifre"}
-              value={passwordValue}
-              onChangeText={text => setPasswordValue(text)}
-              keyboardType='numeric'
-              maxLength={6}
-              mode='outlined'
-              secureTextEntry
-            />
-            <Button mode='contained-tonal' onPress={handleChangePassword}>Kaydet</Button>
-          </>
-          : 
-          null
+        login.loginMethod == LoginMethods.password ?
+        <Surface style={stylesSettings.surface} elevation={5}>
+          <Text  variant="titleMedium">Şifre Ayarları</Text>
+          <Divider style={stylesSettings.divider} />
+          <View style={stylesSettings.rowbox} >
+              <TextInput
+                label={"Şifre"}
+                value={passwordValue}
+                onChangeText={text => setPasswordValue(text)}
+                secureTextEntry={true}
+                keyboardType='numeric'
+                mode='outlined'
+                /* style={stylesSettings.input} */
+              />
+              <Button  style={stylesSettings.button} icon="key" mode="elevated" onPress={handleChangePassword}>
+                Şifre değiştir
+              </Button>
+          </View>
+        </Surface>
+        :
+        null
       }
-    </View>
+    </ScrollView> 
   )
 }
-
 export default GuvenlikAyarlar

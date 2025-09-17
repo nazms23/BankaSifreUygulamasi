@@ -14,8 +14,8 @@ interface MainProps{
 const Main = ({navigation}: MainProps) => {
     const [index, setIndex] = useState(0)
     const [routes] = useState<BottomNavigationRoute[]>([
-        { key: 'banka', title: 'Banka Şifre', unfocusedIcon: 'bank-outline', focusedIcon: 'bank'},
-        { key: 'kart', title: "Kart Bilgiler", unfocusedIcon: 'credit-card-outline', focusedIcon: 'credit-card'}
+        { key: 'banka', title: 'Banka Şifreleri', unfocusedIcon: 'bank-outline', focusedIcon: 'bank'},
+        { key: 'kart', title: "Kart Bilgileri", unfocusedIcon: 'credit-card-outline', focusedIcon: 'credit-card'}
     ])
 
 
