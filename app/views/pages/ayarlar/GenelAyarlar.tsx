@@ -1,15 +1,19 @@
 import {View, ScrollView } from 'react-native'
-import React from 'react'
-import { Text , Surface, IconButton,Divider } from 'react-native-paper'
-
+import React, { useContext, useState } from 'react'
+import { SegmentedButtons, Text , Surface, IconButton,Divider,useTheme } from 'react-native-paper'
 import { stylesSettings } from '../../../utils/styles'
-
+import { MainContext } from '../../../utils/MainContext'
+import { FontSizes, Theme } from '../../../utils/types'
 
 const GenelAyarlar = () => {
+  const {colors} = useTheme()
+
+  const {settings,setFunctions} = useContext(MainContext)
+
   return (
     <ScrollView style={stylesSettings.setting}>
       <Surface style={stylesSettings.surface} elevation={5}>
-          <Text  variant="titleMedium">Görünüm</Text>
+          <Text variant="titleMedium">Görünüm</Text>
          <Divider style={stylesSettings.divider} />
           <View style={stylesSettings.rowbox}>
              <View style={stylesSettings.columnbox}>
@@ -33,10 +37,7 @@ const GenelAyarlar = () => {
               />
               <Text  variant="titleSmall">Yazı</Text>
             </View>
-  
           </View>
-
-
       </Surface>
       <Surface style={stylesSettings.surface} elevation={5}>
           <Text  variant="titleMedium">Tema</Text>
@@ -48,7 +49,7 @@ const GenelAyarlar = () => {
                   icon=      "weather-night"
                   iconColor={'#212121'}
                   size={50}
-                  onPress={() => console.log('Pressed')}
+                  onPress={() => setFunctions.setTheme(Theme.dark)}
                 />
                 <Text  variant="titleSmall">Karanlık</Text>
              </View>
@@ -60,7 +61,7 @@ const GenelAyarlar = () => {
                   iconColor={'#FFFDE7'}
                 size={50}
                
-                onPress={() => console.log('Pressed')}
+                onPress={() => setFunctions.setTheme(Theme.light)}
               />
               <Text  variant="titleSmall">Aydınlık</Text>
             </View>
@@ -77,7 +78,7 @@ const GenelAyarlar = () => {
                   icon=     "format-font-size-increase"
                     iconColor={'#ECEFF1'}
                   size={50}
-                  onPress={() => console.log('Pressed')}
+                  onPress={() => setFunctions.setFontSize(FontSizes.large)}
                 />
                 <Text  variant="titleSmall">Büyük Yazı</Text>
              </View>
@@ -89,14 +90,12 @@ const GenelAyarlar = () => {
                     iconColor={'#ECEFF1'}
                 size={50}
                
-                onPress={() => console.log('Pressed')}
+                onPress={() => setFunctions.setFontSize(FontSizes.small)}
               />
               <Text  variant="titleSmall">Küçük Yazı</Text>
             </View>
-  
           </View>
       </Surface>
-
     </ScrollView>
   )
 }

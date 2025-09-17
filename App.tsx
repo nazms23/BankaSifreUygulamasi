@@ -8,12 +8,10 @@ import Main from './app/views/pages/Main';
 import { DefaultTheme, MD3DarkTheme, MD3LightTheme, PaperProvider } from 'react-native-paper';
 import { ThemeProp } from 'react-native-paper/lib/typescript/types';
 import Ayarlar from './app/views/pages/ayarlar/Ayarlar';
+import { MainContextProvider } from './app/utils/MainContext';
+import RootNavigator from './app/views/RootNavigator';
 
 export default function App() {
-  const Stack = createNativeStackNavigator();
-  const [isDarkTheme, setIsDarkTheme] = useState(true)
-
-  const theme: ThemeProp = isDarkTheme ? MD3DarkTheme : MD3LightTheme
   
   /* {
   ...DefaultTheme,
@@ -31,15 +29,9 @@ export default function App() {
   }} */
 
   return (
-    <PaperProvider theme={theme}>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}}>
-          <Stack.Screen name='Login' component={Login} />
-          <Stack.Screen name='App' component={Main} />
-          <Stack.Screen name='Settings' component={Ayarlar} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
+    <MainContextProvider>
+      <RootNavigator />
+    </MainContextProvider>
   );
 }
 
