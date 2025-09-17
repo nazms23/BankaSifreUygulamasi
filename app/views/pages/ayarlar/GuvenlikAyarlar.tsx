@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react'
 import { Text , Surface, IconButton,Divider,Switch,Button,Tooltip, useTheme, TextInput } from 'react-native-paper'
 import { MainContext } from '../../../utils/MainContext'
 import { NotificationContext } from '../../../utils/NotificationContext'
-import { stylesSettings } from '../../../utils/styles'
+import { stylesLogin, stylesSettings } from '../../../utils/styles'
 import { LoginMethods, NotificationType } from '../../../utils/types'
 const GuvenlikAyarlar = () => {
 
@@ -82,7 +82,7 @@ const GuvenlikAyarlar = () => {
                 secureTextEntry={true}
                 keyboardType='numeric'
                 mode='outlined'
-                /* style={stylesSettings.input} */
+                style={stylesLogin.input}
               />
               <Button  style={stylesSettings.button} icon="key" mode="elevated" onPress={handleChangePassword}>
                 Şifre değiştir
