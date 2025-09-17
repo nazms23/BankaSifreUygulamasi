@@ -74,7 +74,7 @@ const GuvenlikAyarlar = () => {
         <Surface style={stylesSettings.surface} elevation={5}>
           <Text  variant="titleMedium">Şifre Ayarları</Text>
           <Divider style={stylesSettings.divider} />
-          <View style={stylesSettings.rowbox} >
+          <View style={[stylesSettings.rowbox, {flexDirection:"column"}]} >
               <TextInput
                 label={"Şifre"}
                 value={passwordValue}

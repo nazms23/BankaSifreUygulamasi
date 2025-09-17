@@ -44,7 +44,7 @@ const GenelAyarlar = () => {
          <Divider style={stylesSettings.divider} />
           <View style={stylesSettings.rowbox}>
              <View style={stylesSettings.columnbox}>
-                <IconButton style={stylesSettings.selected}
+                <IconButton style={settings.theme == Theme.dark && stylesSettings.selected}
                   mode='contained'
                   icon=      "weather-night"
                   iconColor={'#212121'}
@@ -55,7 +55,7 @@ const GenelAyarlar = () => {
              </View>
            
             <View style={stylesSettings.columnbox}>
-              <IconButton
+              <IconButton style={settings.theme == Theme.light && stylesSettings.selected}
                 mode='contained'
                 icon=     "weather-sunny"
                   iconColor={'#FFFDE7'}
@@ -73,7 +73,7 @@ const GenelAyarlar = () => {
          <Divider style={stylesSettings.divider} />
           <View style={stylesSettings.rowbox}>
              <View style={stylesSettings.columnbox}>
-                <IconButton style={stylesSettings.selected}
+                <IconButton style={settings.fontSize == FontSizes.large && stylesSettings.selected}
                   mode='contained'
                   icon=     "format-font-size-increase"
                     iconColor={'#ECEFF1'}
@@ -84,7 +84,7 @@ const GenelAyarlar = () => {
              </View>
            
             <View style={stylesSettings.columnbox}>
-              <IconButton
+              <IconButton style={settings.fontSize == FontSizes.small && stylesSettings.selected}
                 mode='contained'
                 icon=       "format-font-size-decrease"
                     iconColor={'#ECEFF1'}
