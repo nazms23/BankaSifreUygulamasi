@@ -1,13 +1,12 @@
 import {View, ScrollView } from 'react-native'
-import React, { useContext, useState } from 'react'
-import { SegmentedButtons, Text , Surface, IconButton,Divider,useTheme } from 'react-native-paper'
+import React, { useContext } from 'react'
+import { Text , Surface, IconButton,Divider,useTheme } from 'react-native-paper'
 import { stylesSettings } from '../../../utils/styles'
 import { MainContext } from '../../../utils/MainContext'
 import { FontSizes, Theme } from '../../../utils/types'
 
 const GenelAyarlar = () => {
   const {colors} = useTheme()
-
   const {settings,setFunctions} = useContext(MainContext)
 
   return (

@@ -1,8 +1,7 @@
-import { View } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ThemeProp } from 'react-native-paper/lib/typescript/types';
-import { Button, Dialog, MD3DarkTheme, MD3LightTheme, PaperProvider, Portal, Text } from 'react-native-paper';
+import { MD3DarkTheme, MD3LightTheme, PaperProvider, Portal, Text } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import Login from './Login';
 import Main from './pages/Main';

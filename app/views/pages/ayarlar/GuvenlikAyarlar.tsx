@@ -1,6 +1,6 @@
 import { View,ScrollView } from 'react-native'
 import React, { useContext, useState } from 'react'
-import { Text , Surface, IconButton,Divider,Switch,Button,Tooltip, useTheme, TextInput } from 'react-native-paper'
+import { Text , Surface, Divider,Switch,Button, useTheme, TextInput } from 'react-native-paper'
 import { MainContext } from '../../../utils/MainContext'
 import { NotificationContext } from '../../../utils/NotificationContext'
 import { stylesLogin, stylesSettings } from '../../../utils/styles'
@@ -31,25 +31,20 @@ const GuvenlikAyarlar = () => {
   return (
     <ScrollView style={stylesSettings.setting}>
       <Surface style={stylesSettings.surface} elevation={5}>
-
         <Text  variant="titleMedium">Giriş Seçenekleri</Text>
         <Divider style={stylesSettings.divider} />
         <View style={stylesSettings.switchbox} >
           <Text  variant="titleSmall">Şifresiz giriş yap</Text>
-          
           <Switch value={login.loginMethod == LoginMethods.none} onValueChange={() => setFunctions.setLoginMethod(LoginMethods.none)} />
         </View>
         <View style={stylesSettings.switchbox} >
           <Text  variant="titleSmall">Şifre ile giriş yap</Text>
-          
           <Switch value={login.loginMethod == LoginMethods.password} onValueChange={() => setFunctions.setLoginMethod(LoginMethods.password)} />
         </View>
         <View style={stylesSettings.switchbox} >
           <Text  variant="titleSmall">Parmak izi ile giriş yap</Text>
-          
           <Switch value={login.loginMethod == LoginMethods.biometric} onValueChange={() => setFunctions.setLoginMethod(LoginMethods.biometric)} />
         </View>
-
       </Surface>
   
       {/* <Surface style={stylesSettings.surface} elevation={5}>

@@ -1,9 +1,7 @@
-import { View, Text } from 'react-native'
 import React, { useState } from 'react'
 import { Appbar, BottomNavigation, BottomNavigationRoute } from 'react-native-paper'
 import Banka from './banka/Banka'
 import Kart from './kart/Kart'
-import Ayarlar from './ayarlar/Ayarlar'
 import { RootStackParamList } from '../../utils/types'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
@@ -30,15 +28,15 @@ const Main = ({navigation}: MainProps) => {
 
   return (
     <>
-    <Appbar.Header>
-        <Appbar.Content title={routes[index].title} />
-        <Appbar.Action icon={'cog'} onPress={handleSettingsButton} />
-    </Appbar.Header>
-    <BottomNavigation 
-        navigationState={{index,routes}}
-        onIndexChange={setIndex}
-        renderScene={renderScene}
-    />
+        <Appbar.Header>
+            <Appbar.Content title={routes[index].title} />
+            <Appbar.Action icon={'cog'} onPress={handleSettingsButton} />
+        </Appbar.Header>
+        <BottomNavigation 
+            navigationState={{index,routes}}
+            onIndexChange={setIndex}
+            renderScene={renderScene}
+        />
     </>
   )
 }

@@ -2,13 +2,10 @@ import React, { createContext, ReactNode, useState } from 'react'
 import { Button, Dialog, Icon, Portal, Text } from 'react-native-paper'
 import { NotificationType } from './types'
 
-
 interface NotificationContextType {
     showNotification: (type: NotificationType, description: string, useOkCancelButtons?: boolean, onOk?: () => void) => void
 }
-
 export const NotificationContext = createContext<NotificationContextType>({showNotification: () => {}})
-
 
 export const NotificationContextProvider = ({children}: {children: ReactNode}) => {
     const [visible, setVisible] = React.useState(false);
