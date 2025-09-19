@@ -1,11 +1,12 @@
 import { View, Text, ScrollView, Image } from 'react-native'
 import React, { useContext } from 'react'
-import { Button, Card, Modal, Portal, TextInput } from 'react-native-paper'
+import { Button, Card, IconButton, Modal, Portal, Surface, TextInput,Badge,Icon} from 'react-native-paper'
 import { BankaSifre } from '../../utils/models'
 import { PasswordsContext } from '../../utils/PasswordsContext'
-import { stylesItems } from '../../utils/styles'
+import { stylesModals } from '../../utils/styles'
 import { NotificationContext } from '../../utils/NotificationContext'
 import { NotificationType } from '../../utils/types'
+
 
 interface BankaFormModalProps {
     isModalOpen: boolean
@@ -19,40 +20,51 @@ const BankaFormModal = ({ isModalOpen, setIsModalOpen, banka, setBanka }: BankaF
     const {bankalar, setFunctions} = useContext(PasswordsContext);
     const {showNotification} = useContext(NotificationContext);
     return (
-            <Modal visible={isModalOpen} onDismiss={() => setIsModalOpen(false)}>
-                <Card>
+            <Modal style={stylesModals.modalView}visible={isModalOpen} onDismiss={() => setIsModalOpen(false)}>
+                <Card style={stylesModals.card}>
                     <TextInput 
-                        label={"Şifre"}
+                        label={"Banka Şifrenizi Giriniz"}
                         value={banka.sifre}
                         onChangeText={(text) => setBanka((prev) => ({...prev, sifre: text}))}
                         mode="outlined"
                         keyboardType='numeric'
-                        style={{margin: 10}}
+                        style={stylesModals.input}
                         maxLength={6}
                     />
-                    <ScrollView
-                        horizontal
-                    >
-                        {
-                            bankalar.map((item, index) => (
-                                <Button 
-                                    key={index} 
-                                    style={{flex: 1,display: 'flex', alignContent: 'center', justifyContent: 'center', marginRight: 5, width: 150, height: 50, borderStyle: 'solid', borderWidth: 1, borderColor: banka.banka?.id === item.id ? 'red' : 'black'}}
-                                    onPress={() => setBanka((prev) => ({...prev, banka: item}))}
-                                    >
-                                    {
-                                        item.gorsel ? 
-                                        <Image style={{width: "90%", height: "90%", resizeMode: 'center'}} source={item.gorsel} /> 
-                                        : 
-                                        <Text>{item.bankaAdi}</Text>
-                                    }
-                                </Button>
-                            ))
-                        }
-                    </ScrollView>
+              
+                        <ScrollView style={stylesModals.scrollCont}
+                            horizontal
+                        >
+                        
+                            {
+                                
+                                bankalar.map((item, index) => (
+                                    
+                                    <Button 
+                                        key={index} 
+                                        style={[stylesModals.buttonBank,{backgroundColor:'#ffffffff',borderColor: banka.banka?.id === item.id ? 'green': 'black', borderWidth: banka.banka?.id === item.id? 2 : 1}]}
+                                        onPress={() => setBanka((prev) => ({...prev, banka: item}))}
+                                        >
+                                        {
+                                            item.gorsel ? 
+                                            <Image style={{width: "99%", height: "100%", resizeMode: 'center'}} source={item.gorsel} /> 
+                                            : 
+                                            <Text>{item.bankaAdi}</Text>
+                                            
+                                        }
+                                        
+                                    </Button>
+                                ))
+                            }
+                        
+                    
+                        </ScrollView>
+                  
+
+                    
                     <Card style={{margin: 10}}>
-                        <Button mode="contained-tonal" onPress={() => setIsModalOpen(false)}>Kapat</Button>
-                        <Button mode="contained" onPress={async () => {
+                     
+                        <Button style={stylesModals.button} mode="contained" onPress={async () => {
                             if(!banka.banka)
                             {
                                 showNotification(NotificationType.Error, "Banka seçiniz!")
@@ -75,6 +87,7 @@ const BankaFormModal = ({ isModalOpen, setIsModalOpen, banka, setBanka }: BankaF
                             setBanka({} as BankaSifre)
                             setIsModalOpen(false)
                         }}>Ekle</Button>
+                           <Button style={stylesModals.button} mode="contained-tonal" onPress={() => setIsModalOpen(false)}>Kapat</Button>
                     </Card>
                 </Card>
             </Modal>
