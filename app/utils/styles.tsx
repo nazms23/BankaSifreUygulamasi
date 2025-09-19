@@ -157,3 +157,14 @@ export const stylesItems = StyleSheet.create({
     
   },
 });
+export const stylesModals = StyleSheet.create({
+
+  modalView:{
+    width: '90%',
+    height: '100%',
+    backgroundColor: '#5e5353ff',
+    margin: 'auto',
+    
+  },
+  
+});

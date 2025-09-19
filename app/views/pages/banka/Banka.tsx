@@ -1,8 +1,9 @@
-import { FlatList } from 'react-native'
+import { FlatList,View } from 'react-native'
 import React, { useState } from 'react'
-import { FAB, Portal,Text, useTheme } from 'react-native-paper'
+import { FAB, Portal,Text, useTheme,Button } from 'react-native-paper'
 import BankaListItem from '../../components/BankaListItem'
-
+import ModalC from '../../components/Modal'
+import {stylesModals} from  '../../../utils/styles'
 const Banka = () => {
     const [isFabOpen, setIsFabOpen] = useState(false)
 
@@ -10,8 +11,9 @@ const Banka = () => {
     const [state, setState] = React.useState({ open: false });
 
     const onStateChange = ({ open }) => setState({ open });
-
+    const [visible, setVisible] = useState(false)
     const { open } = state;
+
   return (
     <>
         <FlatList 
@@ -20,15 +22,15 @@ const Banka = () => {
             style={[{flex:0}, {backgroundColor: colors?.background} ] }
             contentContainerStyle={{padding:10,paddingBottom:10}}
         />
-        
+        <ModalC visible={visible} setVisible={setVisible} />
       
-             <FAB.Group
+        <FAB.Group
           open={open}
           visible
           icon={open ? 'arrow-up' : 'plus'}
           actions={[
             { 
-              icon: 'plus', onPress: () => console.log('Pressed add') },
+              icon: 'plus', onPress: () =>setVisible(true)},
             {
               icon: "delete",
               label: 'Sil',
@@ -48,7 +50,7 @@ const Banka = () => {
           onStateChange={onStateChange}
           onPress={() => {
             if (open) {
-              // do something if the speed dial is open
+              
             }
           }}
         />
