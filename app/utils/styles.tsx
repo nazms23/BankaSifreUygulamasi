@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native"
 //import { fontSizes } from "./settings"
 import { Surface } from "react-native-paper"
 import { transparent } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
+import { Color } from "react-native/types_generated/Libraries/Animated/AnimatedExports";
 
 export const stylesLogin = StyleSheet.create({
     container: {
@@ -161,7 +162,7 @@ export const stylesItems = StyleSheet.create({
 export const stylesModals = StyleSheet.create({
 
   modalView:{
-    backgroundColor: '#e2000066',
+    backgroundColor: '#000000a4',
     height: '100%',
     top:'-5%',
   },
@@ -179,13 +180,15 @@ export const stylesModals = StyleSheet.create({
     backgroundColor: '#eceff11f',
     padding: 5,
     borderRadius: 6,
+    
   },
   buttonBank:{
 
-    flex: 0,display: 'flex', alignContent: 'center', justifyContent: 'center', marginRight: 5, width: 120, height: 60, borderStyle: 'solid', borderWidth: 1, borderRadius:6
+    flex: 0,display: 'flex', alignContent: 'center', justifyContent: 'center', marginRight: 5, width: 120, height: 60, borderStyle: 'solid', borderWidth: 1, borderRadius:6, color: '#000',
   
   },
   button:{
+    marginTop: 10,
 
   },
  

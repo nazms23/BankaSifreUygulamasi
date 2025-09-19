@@ -1,6 +1,6 @@
-import { View, Text, ScrollView, Image } from 'react-native'
+import { View, ScrollView, Image } from 'react-native'
 import React, { useContext } from 'react'
-import { Button, Card, IconButton, Modal, Portal, Surface, TextInput,Badge,Icon} from 'react-native-paper'
+import { Button, Card, IconButton, Modal, Portal, Surface, TextInput,Badge,Icon,Text,} from 'react-native-paper'
 import { BankaSifre } from '../../utils/models'
 import { PasswordsContext } from '../../utils/PasswordsContext'
 import { stylesModals } from '../../utils/styles'
@@ -22,6 +22,7 @@ const BankaFormModal = ({ isModalOpen, setIsModalOpen, banka, setBanka }: BankaF
     return (
             <Modal style={stylesModals.modalView}visible={isModalOpen} onDismiss={() => setIsModalOpen(false)}>
                 <Card style={stylesModals.card}>
+                    <Text style={{margin: 'auto',paddingBottom: 15,fontWeight:'900'}} variant='headlineMedium'>Yeni Şifre Oluştur</Text>
                     <TextInput 
                         label={"Banka Şifrenizi Giriniz"}
                         value={banka.sifre}
@@ -31,11 +32,11 @@ const BankaFormModal = ({ isModalOpen, setIsModalOpen, banka, setBanka }: BankaF
                         style={stylesModals.input}
                         maxLength={6}
                     />
-              
+                        <Text style={{marginBottom: 5}} variant='labelLarge'>Kaydır ve Banka Seç</Text>
                         <ScrollView style={stylesModals.scrollCont}
                             horizontal
                         >
-                        
+                          
                             {
                                 
                                 bankalar.map((item, index) => (
@@ -62,7 +63,7 @@ const BankaFormModal = ({ isModalOpen, setIsModalOpen, banka, setBanka }: BankaF
                   
 
                     
-                    <Card style={{margin: 10}}>
+                    <View style={{margin: 10}}>
                      
                         <Button style={stylesModals.button} mode="contained" onPress={async () => {
                             if(!banka.banka)
@@ -86,9 +87,9 @@ const BankaFormModal = ({ isModalOpen, setIsModalOpen, banka, setBanka }: BankaF
                             await setFunctions.setBankaSifreEkle(banka)
                             setBanka({} as BankaSifre)
                             setIsModalOpen(false)
-                        }}>Ekle</Button>
+                        }}>Yeni Şifre Ekle</Button>
                            <Button style={stylesModals.button} mode="contained-tonal" onPress={() => setIsModalOpen(false)}>Kapat</Button>
-                    </Card>
+                    </View>
                 </Card>
             </Modal>
     )
