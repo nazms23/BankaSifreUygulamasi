@@ -1,8 +1,7 @@
 import { StyleSheet } from "react-native"
 //import { fontSizes } from "./settings"
 import { Surface } from "react-native-paper"
-import { transparent } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
-import { Color } from "react-native/types_generated/Libraries/Animated/AnimatedExports";
+
 
 export const stylesLogin = StyleSheet.create({
     container: {

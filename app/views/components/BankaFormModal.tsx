@@ -1,11 +1,12 @@
 import { View, ScrollView, Image } from 'react-native'
-import React, { useContext } from 'react'
-import { Button, Card, IconButton, Modal, Portal, Surface, TextInput,Badge,Icon,Text,} from 'react-native-paper'
+import React, { useContext, useState } from 'react'
+import { Button, Card, IconButton, Modal, Portal, Surface, TextInput,Badge,Icon,Text,SegmentedButtons, SegmentedButtonsProps} from 'react-native-paper'
 import { BankaSifre } from '../../utils/models'
 import { PasswordsContext } from '../../utils/PasswordsContext'
 import { stylesModals } from '../../utils/styles'
 import { NotificationContext } from '../../utils/NotificationContext'
 import { NotificationType } from '../../utils/types'
+import { multiply } from 'react-native/types_generated/Libraries/Animated/AnimatedExports'
 
 
 interface BankaFormModalProps {
@@ -14,15 +15,22 @@ interface BankaFormModalProps {
 
     banka: BankaSifre
     setBanka: React.Dispatch<React.SetStateAction<BankaSifre>>
+
+    baslik: string
+    setBaslik: React.Dispatch<React.SetStateAction<string>>
+    baslikBut: string
+    setBaslikBut: React.Dispatch<React.SetStateAction<string>>
+
 }
 
-const BankaFormModal = ({ isModalOpen, setIsModalOpen, banka, setBanka }: BankaFormModalProps) => {
+const BankaFormModal = ({ isModalOpen, setIsModalOpen, banka, setBanka,baslik,baslikBut }: BankaFormModalProps) => {
     const {bankalar, setFunctions} = useContext(PasswordsContext);
     const {showNotification} = useContext(NotificationContext);
+    const [value, setValue] = React.useState(''); //Segmented Button valueları
     return (
             <Modal style={stylesModals.modalView}visible={isModalOpen} onDismiss={() => setIsModalOpen(false)}>
                 <Card style={stylesModals.card}>
-                    <Text style={{margin: 'auto',paddingBottom: 15,fontWeight:'900'}} variant='headlineMedium'>Yeni Şifre Oluştur</Text>
+                    <Text style={{margin: 'auto',paddingBottom: 15,fontWeight:'900'}} variant='headlineMedium'>{baslik}</Text>
                     <TextInput 
                         label={"Banka Şifrenizi Giriniz"}
                         value={banka.sifre}
@@ -60,7 +68,33 @@ const BankaFormModal = ({ isModalOpen, setIsModalOpen, banka, setBanka }: BankaF
                         
                     
                         </ScrollView>
-                  
+                        <Text style={{marginBottom: 10, marginTop: 10}} variant='labelLarge'>Şifre Yenileme Periyodu Seç</Text>
+                        <SegmentedButtons
+                            value={value}
+                            onValueChange={setValue}
+                            
+                            density='regular'
+                            buttons={[
+                            {
+                                value: 'twomonth',
+                                label: '2 Ay',
+                                checkedColor: '#388E3C',
+                                showSelectedCheck: true,
+                            },
+                            {
+                                value: 'sixmonth',
+                                label: '6 Ay',
+                                checkedColor: '#388E3C',
+                                showSelectedCheck: true,
+                            },
+                            {   value: 'twelvemonth', 
+                                label: '12 Ay',
+                                checkedColor: '#388E3C',
+                                showSelectedCheck: true,
+                            }
+                            
+                            ]}
+                        />
 
                     
                     <View style={{margin: 10}}>
@@ -87,7 +121,7 @@ const BankaFormModal = ({ isModalOpen, setIsModalOpen, banka, setBanka }: BankaF
                             await setFunctions.setBankaSifreEkle(banka)
                             setBanka({} as BankaSifre)
                             setIsModalOpen(false)
-                        }}>Yeni Şifre Ekle</Button>
+                        }}>{baslikBut}</Button>
                            <Button style={stylesModals.button} mode="contained-tonal" onPress={() => setIsModalOpen(false)}>Kapat</Button>
                     </View>
                 </Card>

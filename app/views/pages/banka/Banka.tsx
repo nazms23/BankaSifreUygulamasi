@@ -15,6 +15,7 @@ const Banka = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
     const [banka, setBanka] = useState<BankaSifre>({} as BankaSifre);
 
+
     useEffect(() => {
       console.log(bankaSifreler)
     }, [bankaSifreler])
@@ -61,7 +62,7 @@ const Banka = () => {
           }
         }}
       />
-      <BankaFormModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} banka={banka} setBanka={setBanka} />
+      <BankaFormModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} banka={banka} baslik={'Yeni Şifre Oluştur'} baslikBut={'Ekle'}setBanka={setBanka} />
     </>
   )
 }
