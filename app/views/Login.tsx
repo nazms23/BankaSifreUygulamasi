@@ -7,9 +7,11 @@ import PageLoading from './components/PageLoading'
 import { NotificationContext } from '../utils/NotificationContext'
 import * as LocalAuthentication from "expo-local-authentication"
 import {stylesLogin} from '../.../../utils/styles'
+import { PasswordsContext } from '../utils/PasswordsContext'
 
 const Login = () => {
     const {login,setFunctions} = useContext(MainContext)
+    const password = useContext(PasswordsContext)
     const {showNotification} = useContext(NotificationContext)
     const {colors} = useTheme()
 
@@ -47,6 +49,7 @@ const Login = () => {
 
     function handleResetData() {
       setFunctions.resetAllSettings()
+      password.setFunctions.resetAllSettings()
     }
 
     async function handleForgetPassword() {

@@ -10,10 +10,14 @@ const Banka = () => {
     const [isFabOpen, setIsFabOpen] = useState<boolean>(false)
     const {colors} = useTheme();
 
-    const {bankaSifreler} = useContext(PasswordsContext);
+    const {bankaSifreler, bankalar} = useContext(PasswordsContext);
 
     const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
-    const [banka, setBanka] = useState<BankaSifre>({} as BankaSifre);
+    const [banka, setBanka] = useState<BankaSifre>({
+      id: 0,
+      sifre: '',
+      banka: bankalar[0]
+    });
 
 
     useEffect(() => {
@@ -36,7 +40,11 @@ const Banka = () => {
         actions={[
           { 
             icon: 'plus', onPress: () => {
-              setBanka({} as BankaSifre)
+              setBanka({
+                id: 0,
+                sifre: '',
+                banka: bankalar[0]
+              })
               setIsModalOpen(true)
             } },
           {
@@ -62,7 +70,7 @@ const Banka = () => {
           }
         }}
       />
-      <BankaFormModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} banka={banka} baslik={'Yeni Şifre Oluştur'} baslikBut={'Ekle'}setBanka={setBanka} />
+      <BankaFormModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} banka={banka} setBanka={setBanka} />
     </>
   )
 }
