@@ -5,9 +5,12 @@ import BankaListItem from '../../components/BankaListItem'
 import { decryptPassword, PasswordsContext } from '../../../utils/PasswordsContext'
 import BankaFormModal from '../../components/BankaFormModal'
 import { BankaSifre, SelectedMode } from '../../../utils/models'
+import { NotificationContext } from '../../../utils/NotificationContext'
+import { NotificationType } from '../../../utils/types'
 
 const Banka = () => {
     const {secretKey, setFunctions} = useContext(PasswordsContext);
+    const {showNotification} = useContext(NotificationContext)
     const [isFabOpen, setIsFabOpen] = useState<boolean>(false)
     const [selectedMode, setSelectedMode] = useState<SelectedMode>(SelectedMode.None)
     const {colors} = useTheme();
@@ -35,7 +38,9 @@ const Banka = () => {
             }
             else if(selectedMode === SelectedMode.Delete){
               setSelectedMode(SelectedMode.None)
-              setFunctions.setBankaSifreSil(i.item.id)
+              showNotification(NotificationType.Info, "Silmek İstediğinize Emin Misiniz?", true, () => {
+                setFunctions.setBankaSifreSil(i.item.id)
+              })
             }
             
           }} />}
@@ -60,12 +65,12 @@ const Banka = () => {
           {
             icon: "delete",
             label: 'Sil',
-            onPress: () => setSelectedMode(SelectedMode.Delete),
+            onPress: () => setSelectedMode(prev => prev === SelectedMode.Delete ? SelectedMode.None : SelectedMode.Delete),
           },
           {
             icon:  "circle-edit-outline",
             label: 'Düzenle',
-            onPress: () => setSelectedMode(SelectedMode.Edit),
+            onPress: () => setSelectedMode(prev => prev === SelectedMode.Edit ? SelectedMode.None : SelectedMode.Edit),
           }
         ]}
         onStateChange={({open}) => setIsFabOpen(open)}

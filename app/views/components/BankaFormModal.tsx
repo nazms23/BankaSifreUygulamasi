@@ -109,10 +109,12 @@ const BankaFormModal = ({ isModalOpen, setIsModalOpen, banka, setBanka}: BankaFo
                             if(banka.id == 0)
                             {
                                 await setFunctions.setBankaSifreEkle({...banka})
+                                showNotification(NotificationType.Success, "Şifre Eklendi")
                             }
                             else
                             {
                                 await setFunctions.setBankaSifreDegistir({...banka})
+                                showNotification(NotificationType.Success, "Şifre Değiştirildi")
                             }
 
                             setBanka({} as BankaSifre)
