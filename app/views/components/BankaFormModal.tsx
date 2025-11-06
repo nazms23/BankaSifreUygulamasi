@@ -56,7 +56,7 @@ const BankaFormModal = ({ isModalOpen, setIsModalOpen, banka, setBanka}: BankaFo
                                 ))
                             }
                         </ScrollView>
-                        <Text style={{marginBottom: 10, marginTop: 10}} variant='labelLarge'>Şifre Yenileme Periyodu Seç</Text>
+                        {/* <Text style={{marginBottom: 10, marginTop: 10}} variant='labelLarge'>Şifre Yenileme Periyodu Seç</Text>
                         <SegmentedButtons
                             value={value}
                             onValueChange={setValue}
@@ -82,7 +82,7 @@ const BankaFormModal = ({ isModalOpen, setIsModalOpen, banka, setBanka}: BankaFo
                             }
                             
                             ]}
-                        />
+                        /> */}
 
                     
                     <View style={{margin: 10}}>
