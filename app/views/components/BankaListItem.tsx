@@ -25,7 +25,7 @@ const BankaListItem = ({banka,selectedMode, onPress}: BankaListItemProps) => {
             }]} elevation={5}>
                 <View style={stylesItems.imagecont}><Image style={stylesItems.image}  source={banka.banka.gorsel} /></View>
                 <Text style={stylesItems.surfaceText}  variant="titleMedium">{setFunctions.decryptPassword(banka.sifre, secretKey)}</Text>
-                <Badge style={stylesItems.badges}>expires 20dy.</Badge>
+                {/* <Badge style={stylesItems.badges}>expires 20dy.</Badge> */}
             </Surface>
         </Pressable>
     )
