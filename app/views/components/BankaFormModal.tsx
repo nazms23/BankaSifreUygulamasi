@@ -38,7 +38,6 @@ const BankaFormModal = ({ isModalOpen, setIsModalOpen, banka, setBanka}: BankaFo
                         <Text style={{marginBottom: 5}} variant='labelLarge'>Kaydır ve Banka Seç</Text>
                         <ScrollView style={stylesModals.scrollCont} horizontal>
                             {
-                                
                                 bankalar.map((item, index) => (
                                     
                                     <Button 
@@ -107,9 +106,15 @@ const BankaFormModal = ({ isModalOpen, setIsModalOpen, banka, setBanka}: BankaFo
                                 return;
                             }
 
-                            const id = bankaSifreler.length > 0 ? bankaSifreler[bankaSifreler.length - 1].id + 1 : 0
-                            const yeniBankaSifreler = [...bankaSifreler, {...banka, id: id}]
-                            await setFunctions.setBankaSifreEkle(yeniBankaSifreler)
+                            if(banka.id == 0)
+                            {
+                                await setFunctions.setBankaSifreEkle({...banka})
+                            }
+                            else
+                            {
+                                await setFunctions.setBankaSifreDegistir({...banka})
+                            }
+
                             setBanka({} as BankaSifre)
                             setIsModalOpen(false)
                         }}>{banka.id == 0 ? 'Ekle' : 'Değiştir'}</Button>

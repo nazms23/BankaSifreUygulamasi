@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useEffect, useState } from "react";
+import React, { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 import { FontSizes, LoginMethods, Theme } from "./types";
 import * as SecureStore from 'expo-secure-store'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -44,13 +44,13 @@ export function decryptPassword(encrypted: string, SECRET_KEY: string): string {
 }
 
 interface SetFunctionsType{
-    setBankaSifreEkle: (bankaSifreler: BankaSifre[]) => Promise<void>,
-    setBankaSifreDegistir: (id: number, bankaSifre: BankaSifre) => Promise<void>,
-    setBankaSifreSil: (id: number) => Promise<void>,
+    setBankaSifreEkle: (yeniSifre: BankaSifre) => Promise<void>,
+    setBankaSifreDegistir: (bankaSifre: BankaSifre) => Promise<void>,
+    setBankaSifreSil: (id: number) => void,
 
     setKartSifreEkle: (kartSifre: KartSifreler) => Promise<void>,
-    setKartSifreDegistir: (id: number, kartSifre: KartSifreler) => Promise<void>,
-    setKartSifreSil: (id: number) => Promise<void>,
+    setKartSifreDegistir: (kartSifre: KartSifreler) => Promise<void>,
+    setKartSifreSil: (id: number) => void,
 
     decryptPassword: (encrypted: string, SECRET_KEY: string) => string
 
@@ -67,11 +67,11 @@ const PasswordsContextDefault: PasswordsContextType = {
     setFunctions: {
         setBankaSifreEkle: () => Promise.resolve(),
         setBankaSifreDegistir: () => Promise.resolve(),
-        setBankaSifreSil: () => Promise.resolve(),
+        setBankaSifreSil: () => {},
 
         setKartSifreEkle: () => Promise.resolve(),
         setKartSifreDegistir: () => Promise.resolve(),
-        setKartSifreSil: () => Promise.resolve(),
+        setKartSifreSil: () => {},
 
         decryptPassword: decryptPassword,
 
@@ -86,7 +86,6 @@ export const PasswordsContextProvider = ({children}: {children: ReactNode}) => {
 
     async function getOrSetSecretKey(): Promise<string> {
         if(passwordsContextState.secretKey != ""){
-            console.log(passwordsContextState.secretKey)
             return passwordsContextState.secretKey;
         }
 
@@ -107,56 +106,50 @@ export const PasswordsContextProvider = ({children}: {children: ReactNode}) => {
         const sifreler = await SecureStore.getItemAsync('bankaSifreler') ?? ""
         return sifreler
     }
-    async function setBankaSifreEkle(bankaSifreler: BankaSifre[]){
-        try
-        {
-            const secretKey = await getOrSetSecretKey()
-            bankaSifreler[bankaSifreler.length-1].sifre = encryptPassword(bankaSifreler[bankaSifreler.length-1].sifre, secretKey)
-
-            setPasswordsContextState(prev => ({...prev, bankaSifreler: bankaSifreler}));
-            await SecureStore.setItemAsync('bankaSifreler', JSON.stringify(bankaSifreler));
-        }
-        catch(e){
-            console.log(e)
-        }
+    async function setBankaSifreEkle(yeniSifre: BankaSifre){
+        const secretKey = await getOrSetSecretKey()
+        const crypetPassword = encryptPassword(yeniSifre.sifre, secretKey)
+        yeniSifre.sifre = crypetPassword;
+        
+        setPasswordsContextState(prev =>{ 
+            yeniSifre.id = prev.bankaSifreler.length > 0 ? prev.bankaSifreler[prev.bankaSifreler.length-1].id + 1 : 1
+            
+            const bankaSifreler:BankaSifre[] = [...prev.bankaSifreler, yeniSifre]
+            SecureStore.setItemAsync('bankaSifreler', JSON.stringify(bankaSifreler));
+            return{...prev, bankaSifreler: bankaSifreler} 
+        });
     }
 
-    async function setBankaSifreDegistir(id: number, bankaSifre: BankaSifre){
+    async function setBankaSifreDegistir(duzenlenmisSifre: BankaSifre){
         const secretKey = await getOrSetSecretKey()
+        duzenlenmisSifre.sifre = encryptPassword(duzenlenmisSifre.sifre, secretKey)
 
-        bankaSifre.sifre = encryptPassword(bankaSifre.sifre, secretKey)
-
-        let sifreData: BankaSifre[] = []
-        setPasswordsContextState(prev => {
-            const findIndex = prev.bankaSifreler.findIndex(item => item.id === id)
-            if(findIndex < 0){
-                return prev
+        setPasswordsContextState((prev) => {
+            const eskiSifreIndex = prev.bankaSifreler.findIndex(item => item.id === duzenlenmisSifre.id)
+            if(eskiSifreIndex == -1){
+                return {...prev}
             }
+            let sifreData: BankaSifre[] = [...prev.bankaSifreler]
             sifreData = [...prev.bankaSifreler]
-            sifreData[findIndex] = bankaSifre
+            sifreData[eskiSifreIndex] = duzenlenmisSifre
+
+            SecureStore.setItemAsync('bankaSifreler', JSON.stringify(sifreData));
             return {...prev, bankaSifreler: sifreData}
         })
-        if(sifreData.length === 0){
-            return
-        }
-        await SecureStore.setItemAsync('bankaSifreler', JSON.stringify(sifreData));
     }
 
-    async function setBankaSifreSil(id: number){
+    function setBankaSifreSil(id: number){
         let sifreData: BankaSifre[] = []
         setPasswordsContextState(prev => {
             const findIndex = prev.bankaSifreler.findIndex(item => item.id === id)
-            if(findIndex < 0){
+            if(findIndex == -1){
                 return prev
             }
             sifreData = [...prev.bankaSifreler]
             sifreData.splice(findIndex, 1)
+            SecureStore.setItemAsync('bankaSifreler', JSON.stringify(sifreData));
             return {...prev, bankaSifreler: sifreData}
         })
-        if(sifreData.length === 0){
-            return
-        }
-        await SecureStore.setItemAsync('bankaSifreler', JSON.stringify(sifreData));
     }
 
     async function getKartSifreler(): Promise<string> {
@@ -171,33 +164,33 @@ export const PasswordsContextProvider = ({children}: {children: ReactNode}) => {
         let sifreData: KartSifreler[] = []
         setPasswordsContextState(prev => {
             sifreData = [...prev.kartSifreler, kartSifre]
+            SecureStore.setItemAsync('kartSifreler', JSON.stringify(sifreData));
             return {...prev, kartSifreler: sifreData}
         })
-        await SecureStore.setItemAsync('kartSifreler', JSON.stringify(sifreData));
     }
 
-    async function setKartSifreDegistir(id: number, kartSifre: KartSifreler){
+    async function setKartSifreDegistir(kartSifre: KartSifreler){
         const secretKey = await getOrSetSecretKey()
 
         kartSifre.sifre = encryptPassword(kartSifre.sifre, secretKey)
 
         let sifreData: KartSifreler[] = []
         setPasswordsContextState(prev => {
-            const findIndex = prev.kartSifreler.findIndex(item => item.id === id)
+            const findIndex = prev.kartSifreler.findIndex(item => item.id === kartSifre.id)
             if(findIndex < 0){
                 return prev
             }
             sifreData = [...prev.kartSifreler]
             sifreData[findIndex] = kartSifre
+            SecureStore.setItemAsync('kartSifreler', JSON.stringify(sifreData));
             return {...prev, kartSifreler: sifreData}
         })
         if(sifreData.length === 0){
             return
         }
-        await SecureStore.setItemAsync('kartSifreler', JSON.stringify(sifreData));
     }
 
-    async function setKartSifreSil(id: number){
+    function setKartSifreSil(id: number){
         let sifreData: KartSifreler[] = []
         setPasswordsContextState(prev => {
             const findIndex = prev.kartSifreler.findIndex(item => item.id === id)
@@ -206,12 +199,12 @@ export const PasswordsContextProvider = ({children}: {children: ReactNode}) => {
             }
             sifreData = [...prev.kartSifreler]
             sifreData.splice(findIndex, 1)
+            SecureStore.setItemAsync('kartSifreler', JSON.stringify(sifreData));
             return {...prev, kartSifreler: sifreData}
         })
         if(sifreData.length === 0){
             return
         }
-        await SecureStore.setItemAsync('kartSifreler', JSON.stringify(sifreData));
     }
 
     async function resetAllSettings() {
@@ -234,16 +227,7 @@ export const PasswordsContextProvider = ({children}: {children: ReactNode}) => {
                 kartSifreler: kartSifrelerData,
                 bankalar: Bankalar,
                 secretKey: secretKeyData,
-                setFunctions: {
-                    setBankaSifreEkle: setBankaSifreEkle,
-                    setBankaSifreDegistir: setBankaSifreDegistir,
-                    setBankaSifreSil: setBankaSifreSil,
-                    setKartSifreEkle: setKartSifreEkle,
-                    setKartSifreDegistir: setKartSifreDegistir,
-                    setKartSifreSil: setKartSifreSil,
-                    decryptPassword: decryptPassword,
-                    resetAllSettings: resetAllSettings
-                }
+                setFunctions: passwordsContextState.setFunctions
             }
 
             setPasswordsContextState(PasswordsContextData)
@@ -257,8 +241,21 @@ export const PasswordsContextProvider = ({children}: {children: ReactNode}) => {
         getAllSetting()
     }, [])
 
+    const setFunctions = useMemo(() => ({
+        setBankaSifreEkle: setBankaSifreEkle,
+        setBankaSifreDegistir: setBankaSifreDegistir,
+        setBankaSifreSil: setBankaSifreSil,
+        setKartSifreEkle: setKartSifreEkle,
+        setKartSifreDegistir: setKartSifreDegistir,
+        setKartSifreSil: setKartSifreSil,
+        decryptPassword: decryptPassword,
+        resetAllSettings: resetAllSettings
+    }), [])
+
+    const value = useMemo(() => ({...passwordsContextState, setFunctions}), [passwordsContextState])
+
     return (
-        <PasswordsContext.Provider value={passwordsContextState}>
+        <PasswordsContext.Provider value={value}>
             {children}
         </PasswordsContext.Provider>
     )

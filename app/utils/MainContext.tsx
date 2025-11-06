@@ -57,6 +57,7 @@ export const MainContextProvider = ({children}: {children: ReactNode}) => {
     async function getPassword(): Promise<string> {
         return await SecureStore.getItemAsync('password') ?? ""
     }
+
     async function setPassword(password: string) {
         await SecureStore.setItemAsync('password', password);
         setMainContextState(prev => ({
@@ -69,6 +70,7 @@ export const MainContextProvider = ({children}: {children: ReactNode}) => {
         const value = await SecureStore.getItemAsync('loginMethod') ?? LoginMethods.none
         return (value as LoginMethods) 
     }
+    
     async function setLoginMethod(loginMethod: LoginMethods) {
         await SecureStore.setItemAsync('loginMethod', loginMethod.toString());
         setMainContextState(prev => ({
@@ -93,6 +95,7 @@ export const MainContextProvider = ({children}: {children: ReactNode}) => {
         const value = await AsyncStorage.getItem('theme')
         return  (value as Theme) ?? Theme.light
     }
+
     async function setTheme(theme: Theme) {
         await AsyncStorage.setItem('theme', theme);
         setMainContextState(prev => ({

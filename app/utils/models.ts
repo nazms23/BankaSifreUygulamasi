@@ -23,3 +23,9 @@ export interface KartSifreler {
     kartCVC?: string
     kartSonKullanmaTarihi?: string
 }
+
+export enum SelectedMode {
+    Edit,
+    Delete,
+    None
+}

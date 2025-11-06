@@ -116,16 +116,8 @@ export const stylesItems = StyleSheet.create({
     flexDirection: 'row',
     
   }, itemcont: {
-    
     marginTop: 5,
-     
     flexDirection: 'column',
-  
-   
-
-
- 
-
   },
   surfaceText:{
     width: '70%',
