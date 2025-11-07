@@ -116,7 +116,7 @@ export const stylesItems = StyleSheet.create({
     flexDirection: 'row',
     
   }, itemcont: {
-    marginTop: 5,
+    marginTop: 10,
     flexDirection: 'column',
   },
   surfaceText:{
@@ -174,7 +174,7 @@ export const stylesModals = StyleSheet.create({
     
   },
   buttonBank:{
-
+    backgroundColor: '#fff',
     flex: 0,display: 'flex', alignContent: 'center', justifyContent: 'center', marginRight: 5, width: 120, height: 60, borderStyle: 'solid', borderWidth: 1, borderRadius:6, color: '#000',
   
   },

@@ -20,8 +20,9 @@ const BankaListItem = ({banka,selectedMode, onPress}: BankaListItemProps) => {
         <Pressable style={[ stylesItems.itemcont]} onPress={onPress}>
             <Surface style={[stylesItems.surface,{
                 
-                borderWidth: selectedMode === SelectedMode.Edit || selectedMode === SelectedMode.Delete ? 2 : undefined, 
-                borderColor: selectedMode == SelectedMode.Edit ? "yellow" : selectedMode === SelectedMode.Delete ? "red" : undefined
+                borderWidth: selectedMode === SelectedMode.Edit || selectedMode === SelectedMode.Delete ? 1 : undefined, 
+                boxShadow: selectedMode == SelectedMode.Edit ? '0px 1px 5px #fcefb4' : selectedMode === SelectedMode.Delete ? ' 0px 1px 5px #ef233c': undefined, 
+                borderColor: selectedMode == SelectedMode.Edit ? "#ffd60a" : selectedMode === SelectedMode.Delete ? "#ef233c" : undefined
             }]} elevation={5}>
                 <View style={stylesItems.imagecont}><Image style={stylesItems.image}  source={banka.banka.gorsel} /></View>
                 <Text style={stylesItems.surfaceText}  variant="titleMedium">{setFunctions.decryptPassword(banka.sifre, secretKey)}</Text>
