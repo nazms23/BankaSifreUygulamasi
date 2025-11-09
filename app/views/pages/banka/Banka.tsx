@@ -9,15 +9,13 @@ import { NotificationContext } from '../../../utils/NotificationContext'
 import { NotificationType } from '../../../utils/types'
 
 const Banka = () => {
-    const {secretKey, setFunctions} = useContext(PasswordsContext);
+    const {secretKey, setFunctions, bankaSifreler, bankalar} = useContext(PasswordsContext);
     const {showNotification} = useContext(NotificationContext)
     const [isFabOpen, setIsFabOpen] = useState<boolean>(false)
     const [selectedMode, setSelectedMode] = useState<SelectedMode>(SelectedMode.None)
     const {colors} = useTheme();
 
-    const {bankaSifreler, bankalar} = useContext(PasswordsContext);
-
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [banka, setBanka] = useState<BankaSifre>({
       id: 0,
       sifre: '',
@@ -28,7 +26,7 @@ const Banka = () => {
     <>
       <FlatList 
           data={bankaSifreler}
-          renderItem={(i) => <BankaListItem banka={i.item} selectedMode={selectedMode} onPress={() => {
+          renderItem={(i) => <BankaListItem key={i.index} banka={i.item} selectedMode={selectedMode} onPress={() => {
             if(selectedMode === SelectedMode.Edit){
               const bankaSifre:BankaSifre = {...i.item, sifre: decryptPassword(i.item.sifre, secretKey)}
   
@@ -63,15 +61,15 @@ const Banka = () => {
               setIsModalOpen(true)
             } },
           {
+            icon:  "circle-edit-outline",
+            label: 'Düzenle',
+            onPress: () => setSelectedMode(prev => prev === SelectedMode.Edit ? SelectedMode.None : SelectedMode.Edit),
+          },
+          {
             icon: "delete",
             label: 'Sil',
             onPress: () => setSelectedMode(prev => prev === SelectedMode.Delete ? SelectedMode.None : SelectedMode.Delete),
           },
-          {
-            icon:  "circle-edit-outline",
-            label: 'Düzenle',
-            onPress: () => setSelectedMode(prev => prev === SelectedMode.Edit ? SelectedMode.None : SelectedMode.Edit),
-          }
         ]}
         onStateChange={({open}) => setIsFabOpen(open)}
         onPress={() => {
