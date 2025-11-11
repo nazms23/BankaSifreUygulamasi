@@ -148,7 +148,25 @@ export const stylesItems = StyleSheet.create({
     
     
     
-  },
+  },kartInfo:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: 6,
+    marginTop: 10,
+    padding: 5,
+    
+  },kartInfoAlt:{
+
+    borderRadius: 3,
+    marginTop: 1,
+    padding: 5,
+    
+  },acbut:{
+    alignItems: 'center',
+    paddingBottom: -5,
+   
+  }
 });
 export const stylesModals = StyleSheet.create({
 
