@@ -22,7 +22,9 @@ const KartListItem = ({kart,onPress,selectedMode}: KartListItemProps) => {
   return (
     <Pressable style={[{flex: 1}, {backgroundColor: colors?.background}]} onPress={onPress}>
       <Card style={[{marginTop:10,marginBottom:10, paddingBottom: 0, paddingTop: 0}]}>
-        <View style={[stylesItems.itemcont, {marginTop: 10}]}>
+        
+        <View style={[stylesItems.itemcont, {marginTop: 0}]}>
+          
             <Surface style={[stylesItems.surface, {
               borderWidth: selectedMode === SelectedMode.Edit || selectedMode === SelectedMode.Delete ? 1 : undefined, 
                 boxShadow: selectedMode == SelectedMode.Edit ? '0px 1px 5px #fcefb4' : selectedMode === SelectedMode.Delete ? ' 0px 1px 5px #ef233c': undefined, 
@@ -30,12 +32,11 @@ const KartListItem = ({kart,onPress,selectedMode}: KartListItemProps) => {
             }]} elevation={5}>
                 <View style={stylesItems.imagecont}><Image style={stylesItems.image}  source={kart.kart.gorsel} /></View>
                 <Text style={stylesItems.surfaceText}  variant="titleMedium">{setFunctions.decryptPassword(kart.sifre, secretKey)}</Text>
+                <IconButton  style={stylesItems.acbut} icon="arrow-down" mode="outlined" onPress={() => console.log('Pressed')}></IconButton>
             </Surface>
         </View>
-        <Card.Content style={stylesItems.acbut}>
-
-           <IconButton icon="arrow-down" mode="outlined" onPress={() => console.log('Pressed')}></IconButton>
-
+        <Card.Content>
+            <Pressable></Pressable>
         </Card.Content>
       </Card>
             {/* Burası Kapalı Hali */}   {/* Bu halini atıyorum farklı brench te yana koymuş halini atıcam istediğini çek */}

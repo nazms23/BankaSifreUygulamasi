@@ -163,9 +163,11 @@ export const stylesItems = StyleSheet.create({
     padding: 5,
     
   },acbut:{
-    alignItems: 'center',
-    paddingBottom: -5,
-   
+    position: 'absolute',
+    alignSelf: 'flex-start',
+    top: '20%',
+    right: 5,
+  
   }
 });
 export const stylesModals = StyleSheet.create({
