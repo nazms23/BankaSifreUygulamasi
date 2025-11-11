@@ -38,8 +38,8 @@ const KartFormModal = ({ isModalOpen, setIsModalOpen, kart, setKart}: KartFormMo
                                 onChangeText={(text) => setKart((prev) => ({...prev, sifre: text}))}
                                 mode="outlined"
                                 keyboardType='numeric'
-                                style={stylesModals.input}
-                                maxLength={6}
+                                style={stylesModals.input2}
+                                maxLength={4}
                             />
                             <Text style={{marginBottom: 5}} variant='labelLarge'>Kaydır ve Banka Seç</Text>
                             <ScrollView style={stylesModals.scrollCont} horizontal>
@@ -62,12 +62,13 @@ const KartFormModal = ({ isModalOpen, setIsModalOpen, kart, setKart}: KartFormMo
                                     ))
                                 }
                             </ScrollView>
+                          
                             <TextInput 
                                 label={"Açıklama Giriniz"}
                                 value={kart.aciklama}
                                 onChangeText={(text) => setKart((prev) => ({...prev, aciklama: text}))}
                                 mode="outlined"
-                                style={stylesModals.input}
+                                style={[stylesModals.input2,{marginTop: 5}]}
                                 maxLength={50}
                             />
                             <TextInput 
@@ -84,39 +85,40 @@ const KartFormModal = ({ isModalOpen, setIsModalOpen, kart, setKart}: KartFormMo
                                 }}
                                 mode="outlined"
                                 keyboardType='numeric'
-                                style={stylesModals.input}
+                                style={stylesModals.input2}
                                 maxLength={19}
                             />
-                            <TextInput 
-                                label={"Tarih Giriniz"}
-                                value={kart.kartSonKullanmaTarihi}
-                                onChangeText={(text) => {
-                                    let cleaned = text.replace(/\D/g, "");
+                            <View style={{flexDirection: 'row-reverse',justifyContent: 'space-between'}}>
+                                <TextInput 
+                                    label={"SKT Giriniz"}
+                                    value={kart.kartSonKullanmaTarihi}
+                                    onChangeText={(text) => {
+                                        let cleaned = text.replace(/\D/g, "");
 
-                                    if (cleaned.length > 2) {
-                                    cleaned = cleaned.slice(0, 2) + "/" + cleaned.slice(2, 4);
-                                    }
+                                        if (cleaned.length > 2) {
+                                        cleaned = cleaned.slice(0, 2) + "/" + cleaned.slice(2, 4);
+                                        }
 
-                                    setKart((prev) => ({...prev, kartSonKullanmaTarihi: cleaned.slice(0, 5)}))
-                                }}
-                                mode="outlined"
-                                keyboardType='numeric'
-                                style={stylesModals.input}
-                                maxLength={5}
-                            />
-                            <TextInput 
-                                label={"CVV Giriniz"}
-                                value={kart.kartCVC}
-                                onChangeText={(text) => setKart((prev) => ({...prev, kartCVC: text}))}
-                                mode="outlined"
-                                keyboardType='numeric'
-                                style={stylesModals.input}
-                                maxLength={3}
-                            />
-
+                                        setKart((prev) => ({...prev, kartSonKullanmaTarihi: cleaned.slice(0, 5)}))
+                                    }}
+                                    mode="outlined"
+                                    keyboardType='numeric'
+                                   style={[stylesModals.input2,{width:'45%'}]}
+                                    maxLength={5}
+                                />
+                                <TextInput 
+                                    label={"CVV Giriniz"}
+                                    value={kart.kartCVC}
+                                    onChangeText={(text) => setKart((prev) => ({...prev, kartCVC: text}))}
+                                    mode="outlined"
+                                    keyboardType='numeric'
+                                    style={[stylesModals.input2,{width:'45%'}]}
+                                    maxLength={3}
+                                />
+                            </View>
 
                             
-                            <View style={{margin: 10}}>
+                            <View style={{marginTop: 10}}>
                             
                                 <Button style={stylesModals.button} mode="contained" onPress={async () => {
                                     if(!kart.kart)

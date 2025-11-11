@@ -28,7 +28,7 @@ const KartListItem = ({kart,onPress,selectedMode}: KartListItemProps) => {
               borderColor: selectedMode == SelectedMode.Edit ? "#ffd60a" : selectedMode === SelectedMode.Delete ? "#ef233c" : undefined
           }]} elevation={5}>
               <View style={stylesItems.imagecont}><Image style={stylesItems.image}  source={kart.kart.gorsel} /></View>
-              <Text style={stylesItems.surfaceText}  variant="titleMedium">{setFunctions.decryptPassword(kart.sifre, secretKey)}</Text>
+              <Text style={stylesItems.surfaceText}  variant="titleMedium">{setFunctions.decryptPassword(kart.sifre, secretKey)}</Text>    
           </Surface>
         </View>
         <Card.Content>
