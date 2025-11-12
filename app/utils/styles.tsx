@@ -67,6 +67,7 @@ export const stylesSettings = StyleSheet.create({
         flexDirection: 'column',
         alignItems:'center',
         justifyContent: 'center',
+        
       
     },
      selected:{
@@ -78,7 +79,7 @@ export const stylesSettings = StyleSheet.create({
         flexDirection: 'row',
         alignItems:'center',
         justifyContent: 'space-between',
-        backgroundColor: '#69696969',
+        
         borderRadius: 6, 
         marginTop: 15,
         paddingLeft: 20,
@@ -104,6 +105,7 @@ export const stylesSettings = StyleSheet.create({
         flexDirection: 'row-reverse',
       
     }
+  
 })
 export const stylesItems = StyleSheet.create({
   surface: {
@@ -199,9 +201,12 @@ export const stylesModals = StyleSheet.create({
     
   },
   buttonBank:{
-    backgroundColor: '#fff',
-    flex: 0,display: 'flex', alignContent: 'center', justifyContent: 'center', marginRight: 5, width: 120, height: 60, borderStyle: 'solid', borderWidth: 1, borderRadius:6, color: '#000',
+    backgroundColor: '#ffff',
+    flex: 0,display: 'flex', alignContent: 'center', justifyContent: 'center', marginRight: 5, width: 120, height: 60, borderStyle: 'solid', borderWidth: 1, borderRadius:6
   
+  },sada:{
+fontSize: 50, 
+width: 100
   },
   button:{
     marginTop: 10,

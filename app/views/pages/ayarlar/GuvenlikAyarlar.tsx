@@ -33,15 +33,15 @@ const GuvenlikAyarlar = () => {
       <Surface style={stylesSettings.surface} elevation={5}>
         <Text  variant="titleMedium">Giriş Seçenekleri</Text>
         <Divider style={stylesSettings.divider} />
-        <View style={stylesSettings.switchbox} >
+        <View style={[stylesSettings.switchbox,{backgroundColor: colors?.onSecondary}]} >
           <Text  variant="titleSmall">Şifresiz giriş yap</Text>
           <Switch value={login.loginMethod == LoginMethods.none} onValueChange={() => setFunctions.setLoginMethod(LoginMethods.none)} />
         </View>
-        <View style={stylesSettings.switchbox} >
+        <View style={[stylesSettings.switchbox,{backgroundColor: colors?.onSecondary}]} >
           <Text  variant="titleSmall">Şifre ile giriş yap</Text>
           <Switch value={login.loginMethod == LoginMethods.password} onValueChange={() => setFunctions.setLoginMethod(LoginMethods.password)} />
         </View>
-        <View style={stylesSettings.switchbox} >
+        <View style={[stylesSettings.switchbox,{backgroundColor: colors?.onSecondary}]} >
           <Text  variant="titleSmall">Parmak izi ile giriş yap</Text>
           <Switch value={login.loginMethod == LoginMethods.biometric} onValueChange={() => setFunctions.setLoginMethod(LoginMethods.biometric)} />
         </View>
@@ -66,12 +66,12 @@ const GuvenlikAyarlar = () => {
 
       {
         login.loginMethod == LoginMethods.password ?
-        <Surface style={stylesSettings.surface} elevation={5}>
+        <Surface style={[stylesSettings.surface,{marginBottom:50}]} elevation={5}>
           <Text  variant="titleMedium">Şifre Ayarları</Text>
           <Divider style={stylesSettings.divider} />
           <View style={[stylesSettings.rowbox, {flexDirection:"column"}]} >
               <TextInput
-                label={"Şifre"}
+                label={"Yeni Şifre"}
                 value={passwordValue}
                 onChangeText={text => setPasswordValue(text)}
                 secureTextEntry={true}

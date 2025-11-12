@@ -17,7 +17,7 @@ const BankaListItem = ({banka,selectedMode, onPress}: BankaListItemProps) => {
     const {setFunctions, secretKey} = useContext(PasswordsContext);
 
     return (
-        <Pressable style={[ stylesItems.itemcont]} onPress={onPress}>
+        <Pressable style={[ stylesItems.itemcont,{backgroundColor: colors?.background,borderRadius:12}]} onPress={onPress}>
             <Surface style={[stylesItems.surface,{
                 
                 borderWidth: selectedMode === SelectedMode.Edit || selectedMode === SelectedMode.Delete ? 1 : undefined, 

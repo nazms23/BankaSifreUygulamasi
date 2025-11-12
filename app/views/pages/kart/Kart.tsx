@@ -45,7 +45,7 @@ const Kart = () => {
                             }
                             else if(selectedMode === SelectedMode.Delete){
                                 setSelectedMode(SelectedMode.None)
-                                showNotification(NotificationType.Info, "Silmek İstediğinize Emin Misiniz?", true, () => {
+                                showNotification(NotificationType.Info, "Silmek istediğinize emin misiniz?", true, () => {
                                 setFunctions.setKartSifreSil(i.item.id)
                                 })
                             }
@@ -53,13 +53,14 @@ const Kart = () => {
                         }}
                     selectedMode={selectedMode} />}
                 style={[{flex:1}, {backgroundColor: colors?.background}] }
-                contentContainerStyle={{padding:16,paddingBottom:60}}
+                contentContainerStyle={{padding:10,paddingBottom:120}}
             />
             <FAB.Group 
                 open={isFabOpen}
                 onStateChange={(open) => setIsFabOpen(open.open)}
                 visible
-                icon={'plus'}
+                icon={isFabOpen ? 'arrow-up' : 'plus'}
+                
                 actions={[
                     { 
                         icon: 'plus', label: 'Ekle', onPress: () => {

@@ -48,6 +48,7 @@ const KartFormModal = ({ isModalOpen, setIsModalOpen, kart, setKart}: KartFormMo
                                         
                                         <Button 
                                             key={index} 
+                                            
                                             style={[stylesModals.buttonBank,{borderColor: kart.kart?.id === item.id ? 'green': 'black', borderWidth: kart.kart?.id === item.id? 2 : 1}]}
                                             onPress={() => setKart((prev) => ({...prev, kart: item}))}
                                             >
@@ -57,7 +58,7 @@ const KartFormModal = ({ isModalOpen, setIsModalOpen, kart, setKart}: KartFormMo
                                                 : 
                                                 <Text>{item.bankaAdi}</Text>
                                             }
-                                            
+                                         
                                         </Button>
                                     ))
                                 }
@@ -129,7 +130,7 @@ const KartFormModal = ({ isModalOpen, setIsModalOpen, kart, setKart}: KartFormMo
 
                                     if(!kart.sifre)
                                     {
-                                        showNotification(NotificationType.Error, "Şifre giriniz!")
+                                        showNotification(NotificationType.Error, "Şifre alanı boş bırakılamaz!")
                                         return;
                                     }
                                     
@@ -142,7 +143,7 @@ const KartFormModal = ({ isModalOpen, setIsModalOpen, kart, setKart}: KartFormMo
                                     if(kart.id == 0)
                                     {
                                         await setFunctions.setKartSifreEkle({...kart})
-                                        showNotification(NotificationType.Success, "Şifre Eklendi")
+                                        showNotification(NotificationType.Success, "Yeni Şifre Eklendi")
                                     }
                                     else
                                     {
