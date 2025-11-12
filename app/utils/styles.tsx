@@ -124,6 +124,7 @@ export const stylesItems = StyleSheet.create({
     marginRight: 50,
     paddingLeft: 10,
     paddingRight: 10,
+  
     textAlign: 'center',
     fontSize: 25,
   },
@@ -186,6 +187,10 @@ export const stylesModals = StyleSheet.create({
   input:{
 
     marginBottom: 15,
+  },
+   input2:{
+
+    marginBottom: 5,
   },
   scrollCont:{
     backgroundColor: '#eceff11f',
