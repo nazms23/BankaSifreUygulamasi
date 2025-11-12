@@ -4,9 +4,8 @@ export type RootStackParamList = {
 };
 
 export enum FontSizes {
-  small = "12px",
-  default = "16px",
-  large = "20px"
+  default = "1",
+  large = "1.5"
 }
 
 export enum Theme{

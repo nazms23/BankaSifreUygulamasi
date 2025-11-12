@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Appbar, BottomNavigation, BottomNavigationRoute } from 'react-native-paper'
+import { Appbar, BottomNavigation, BottomNavigationRoute, useTheme } from 'react-native-paper'
 import Banka from './banka/Banka'
 import Kart from './kart/Kart'
 import { RootStackParamList } from '../../utils/types'
@@ -15,7 +15,6 @@ const Main = ({navigation}: MainProps) => {
         { key: 'banka', title: 'Banka Şifreleri', unfocusedIcon: 'bank-outline', focusedIcon: 'bank'},
         { key: 'kart', title: "Kart Bilgileri", unfocusedIcon: 'credit-card-outline', focusedIcon: 'credit-card'}
     ])
-
 
     const renderScene = BottomNavigation.SceneMap({
         banka: Banka,

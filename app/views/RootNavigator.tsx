@@ -10,15 +10,20 @@ import { MainContext } from '../utils/MainContext';
 import { Theme } from '../utils/types';
 import LoadingScreen from './pages/LoadingScreen';
 import { NotificationContextProvider } from '../utils/NotificationContext';
+import { StatusBar } from 'expo-status-bar';
 
 const RootNavigator = () => {
-  const Stack = createNativeStackNavigator();
-  const {isAllLoaded,settings, login} = useContext(MainContext)
+    const Stack = createNativeStackNavigator();
+    const {isAllLoaded,settings, login} = useContext(MainContext)
 
-  const theme: ThemeProp = settings.theme == Theme.dark ? MD3DarkTheme : MD3LightTheme
-  
+    const theme: ThemeProp = settings.theme == Theme.dark ? MD3DarkTheme : MD3LightTheme
+    
     return (
         <PaperProvider theme={theme}>
+            <StatusBar 
+                style={settings.theme == Theme.dark ? 'light' : 'dark'}
+                backgroundColor={theme.colors?.background ?? "#fff"}
+            />
             <NotificationContextProvider>
                 {
                     isAllLoaded ? <NavigationContainer>
