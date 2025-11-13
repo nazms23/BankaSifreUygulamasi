@@ -101,7 +101,7 @@ const BankaFormModal = ({ isModalOpen, setIsModalOpen, banka, setBanka}: BankaFo
 
                                 if(!banka.sifre)
                                 {
-                                    showNotification(NotificationType.Error, "Şifre giriniz!")
+                                    showNotification(NotificationType.Error, "Şifre alanı boş bırakılamaz!")
                                     return;
                                 }
                                 
@@ -114,7 +114,7 @@ const BankaFormModal = ({ isModalOpen, setIsModalOpen, banka, setBanka}: BankaFo
                                 if(banka.id == 0)
                                 {
                                     await setFunctions.setBankaSifreEkle({...banka})
-                                    showNotification(NotificationType.Success, "Şifre Eklendi")
+                                    showNotification(NotificationType.Success, "Yeni Şifre Eklendi")
                                 }
                                 else
                                 {

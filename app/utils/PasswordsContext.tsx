@@ -28,7 +28,7 @@ const Bankalar: BankaImage[] = [
     {id: 8, bankaAdi: "Vakıfbank", gorsel: require("../../assets/bankalar/Vakif.png")},
     {id: 9, bankaAdi: "Yapı Kredi", gorsel: require("../../assets/bankalar/yapikredi.png")},
     {id: 10, bankaAdi: "Ziraat Bankası", gorsel: require("../../assets/bankalar/Ziraat.png")},
-    {id: 11, bankaAdi: "Diğer"},
+    {id: 11, bankaAdi: "Diğer", gorsel: require("../../assets/bankalar/diger.png")},
 
 ]
 

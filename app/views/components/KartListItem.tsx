@@ -93,7 +93,7 @@ const KartListItem = ({kart,onPress,selectedMode}: KartListItemProps) => {
 
               await Clipboard.setStringAsync(kart.kartNumarasi?.toString().replace(/ /g, '') ?? '');
 
-              showNotification(NotificationType.Success, "Kart numarası başarıyla kopyalandı!");
+              showNotification(NotificationType.Success, "Kart Numarası kopyalandı!");
             }}
             style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}
           >
@@ -105,7 +105,7 @@ const KartListItem = ({kart,onPress,selectedMode}: KartListItemProps) => {
 
               await Clipboard.setStringAsync(kart.kartSonKullanmaTarihi?.toString().replace(/ /g, '') ?? '');
 
-              showNotification(NotificationType.Success, "Son kullanma tarihi basarıyla kopyalandı!");
+              showNotification(NotificationType.Success, "Son Kullanma Tarihi kopyalandı!");
             }}
             style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}
           >
@@ -118,11 +118,11 @@ const KartListItem = ({kart,onPress,selectedMode}: KartListItemProps) => {
 
               await Clipboard.setStringAsync(kart.kartCVC?.toString().replace(/ /g, '') ?? '');
 
-              showNotification(NotificationType.Success, "CvC basarıyla kopyalandı!");
+              showNotification(NotificationType.Success, "CVV kopyalandı!");
             }}
             style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}
           >
-            <View style={[stylesItems.kartInfo,{backgroundColor: colors?.onSecondary}]}><Text variant="titleSmall">Kart CvC</Text><View style={[stylesItems.kartInfoAlt,{backgroundColor: colors?.background}]}><Text variant="labelMedium">{kart.kartCVC}</Text></View></View>
+            <View style={[stylesItems.kartInfo,{backgroundColor: colors?.onSecondary}]}><Text variant="titleSmall">Kart CVC</Text><View style={[stylesItems.kartInfoAlt,{backgroundColor: colors?.background}]}><Text variant="labelMedium">{kart.kartCVC}</Text></View></View>
           
           </Pressable>
         </Card.Content>

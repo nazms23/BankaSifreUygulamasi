@@ -43,7 +43,7 @@ const Banka = () => {
             
           }} />}
           style={[{flex:0}, {backgroundColor: colors?.background} ] }
-          contentContainerStyle={{padding:10,paddingBottom:10}}
+          contentContainerStyle={{padding:10,paddingBottom:120}}
       />
         
       <FAB.Group
