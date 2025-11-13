@@ -50,7 +50,7 @@ const GenelAyarlar = () => {
                   size={50}
                   onPress={() => setFunctions.setTheme(Theme.dark)}
                 />
-                <Text  variant="titleSmall">Ay</Text>
+                <Text  variant="titleSmall">Karanlık</Text>
              </View>
            
             <View style={stylesSettings.columnbox}>
@@ -62,7 +62,7 @@ const GenelAyarlar = () => {
                
                 onPress={() => setFunctions.setTheme(Theme.light)}
               />
-              <Text  variant="titleSmall">Güneş</Text>
+              <Text  variant="titleSmall">Açık</Text>
             </View>
   
           </View>
