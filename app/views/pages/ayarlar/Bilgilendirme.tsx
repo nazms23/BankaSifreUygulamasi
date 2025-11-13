@@ -1,162 +1,327 @@
-import { View, ScrollView, Linking } from 'react-native'
-import React from 'react'
-import { Text, Surface, IconButton, Divider, useTheme, Avatar } from 'react-native-paper'
-import { stylesSettings } from '../../../utils/styles'
+import { View, ScrollView, Linking } from 'react-native';
+import React from 'react';
+import {
+  Text,
+  Surface,
+  IconButton,
+  Divider,
+  useTheme,
+  Avatar,
+  Button,
+} from 'react-native-paper';
+import { stylesSettings } from '../../../utils/styles';
 
 const Bilgilendirme = () => {
-  const { colors } = useTheme()
+  const { colors } = useTheme();
 
   return (
-    <ScrollView style={stylesSettings.setting}>
-      <Surface style={[stylesSettings.surface]} elevation={5}>
-        <View style={[stylesSettings.columnbox, { alignItems: 'flex-start', marginBottom: 10 }]}>
-          <Text style={[{ fontSize: 18, lineHeight: 28, fontWeight: 'bold' }]}>
-            Uygulamanın Amacı ve Bilgilendirme
-          </Text>
-          <Text style={[{ fontSize: 15, lineHeight: 20 }]}>
-            Uygulamamızın amacı, şifrelerinizi ve kart bilgilerinizi güvenli, düzenli ve kolay erişilebilir şekilde{' '}
-            <Text style={[{ fontWeight: 'bold' }]}>saklamanızı</Text> sağlamaktır.
-          </Text>
-          <Text style={[{ fontSize: 15, lineHeight: 20 }]}>
-            Tüm veriler cihazınızın içinde <Text style={[{ fontWeight: 'bold' }]}>şifrelenmiş biçimde</Text> depolanır ve uygulama{' '}
-            <Text style={[{ fontWeight: 'bold' }]}>internete bağlanmaz</Text>. Bu sayede bilgileriniz{' '}
-            <Text style={[{ fontWeight: 'bold' }]}>yalnızca sizin cihazınızda kalır</Text> ve hiçbir şekilde dışarı aktarılmaz.
-          </Text>
-        </View>
-
-        <Divider style={stylesSettings.divider} bold />
-
-        <View style={[stylesSettings.columnbox, { marginBottom: 10 }]}>
-          <Text style={[{ fontSize: 18, lineHeight: 28, fontWeight: 'bold' }]}>Kart Bilgileri Hakkında</Text>
-          <Text style={[{ fontSize: 15, lineHeight: 20 }]}>
-            <Text style={[{ fontWeight: 'bold' }]}>Kart şifresi (PIN):</Text> Zorunlu alandır ve cihazınızda{' '}
-            <Text style={[{ fontWeight: 'bold' }]}>şifrelenerek</Text> saklanır.
-          </Text>
-          <Text style={[{ fontSize: 15, lineHeight: 20 }]}>
-            <Text style={[{ fontWeight: 'bold' }]}>Kart numarası, son kullanma tarihi (SKT) ve CVC:</Text> Bu alanlar{' '}
-            <Text style={[{ fontWeight: 'bold' }]}>isteğe bağlıdır</Text> ve yalnızca{' '}
-            <Text style={[{ fontWeight: 'bold' }]}>kopyalama kolaylığı</Text> sağlamak amacıyla saklanır. Ancak bu veriler{' '}
-            <Text style={[{ fontWeight: 'bold' }]}>şifrelenmez</Text>.
-          </Text>
-          <Text style={[{ fontSize: 15, lineHeight: 20 }]}>
-            Kart numarası, SKT ve CVC gibi bilgiler <Text style={[{ fontWeight: 'bold' }]}>hassas kabul edilir</Text>. Bu alanları doldurmadan önce{' '}
-            <Text style={[{ fontWeight: 'bold' }]}>riskleri değerlendirmenizi</Text> ve cihazınızda{' '}
-            <Text style={[{ fontWeight: 'bold' }]}>ek güvenlik önlemleri</Text> (ekran kilidi, biyometrik doğrulama vb.) kullanmanızı öneririz.
-          </Text>
-          <Text style={[{ fontSize: 15, lineHeight: 20 }]}>
-            Uygulamayı indirerek bu bilgilendirmeyi <Text style={[{ fontWeight: 'bold' }]}>okuduğunuzu ve kabul ettiğinizi</Text> beyan etmiş olursunuz.
-          </Text>
-        </View>
-
-        <Divider style={stylesSettings.divider} bold />
-
-        <View style={[stylesSettings.columnbox, { marginBottom: 10 }]}>
-          <Text style={[{ fontSize: 18, lineHeight: 28, fontWeight: 'bold' }]}>Giriş Yöntemleri</Text>
-          <Text style={[{ fontSize: 15, lineHeight: 20 }]}>
-            Uygulamaya giriş yaparken üç farklı yöntem arasından seçim yapabilirsiniz. Tercihinizi <Text style={[{ fontWeight: 'bold' }]}>Ayarlar</Text> bölümünden değiştirebilirsiniz:
-          </Text>
-          <Text style={[{ fontSize: 15, lineHeight: 20 }]}>• Şifresiz giriş (uygulama açıldığında doğrudan erişim)</Text>
-          <Text style={[{ fontSize: 15, lineHeight: 20 }]}>• PIN ile giriş (sayısal kod ile koruma)</Text>
-          <Text style={[{ fontSize: 15, lineHeight: 20 }]}>• Biyometrik giriş (parmak izi veya yüz tanıma, cihaz desteğine bağlı)</Text>
-          <Text style={[{ fontSize: 15, lineHeight: 20 }]}>
-            Daha yüksek güvenlik için <Text style={[{ fontWeight: 'bold' }]}>PIN</Text> veya{' '}
-            <Text style={[{ fontWeight: 'bold' }]}>biyometrik giriş</Text> yöntemini kullanmanız önerilir.
-          </Text>
-        </View>
-
-        <Divider style={stylesSettings.divider} bold />
-
-        <View style={[stylesSettings.columnbox, {}]}>
-          <Text style={[{ fontSize: 18, lineHeight: 28, fontWeight: 'bold' }]}>Açık Kaynak ve Katkı</Text>
-          <Text style={[{ fontSize: 15, lineHeight: 20 }]}>
-            Uygulamamız <Text style={[{ fontWeight: 'bold' }]}>tamamen açık kaynak kodludur</Text>.
-          </Text>
-          <Text style={[{ fontSize: 15, lineHeight: 20 }]}>
-            Projemizin kodlarını <Text style={[{ fontWeight: 'bold' }]}>GitHub sayfamızdan</Text> inceleyebilir, öneri veya katkılarınızı paylaşabilirsiniz.
-          </Text>
-          <Text style={[{ fontSize: 15, lineHeight: 20 }]}>
-            Görüşlerinizi <Text style={[{ fontWeight: 'bold' }]}>GitHub Issues</Text> bölümü veya{' '}
-            <Text style={[{ fontWeight: 'bold' }]}>Google Play yorumları</Text> aracılığıyla iletebilirsiniz.
-          </Text>
-        </View>
-
-        <Divider style={stylesSettings.divider} bold />
-
-        <View style={[stylesSettings.columnbox, {}]}>
-          <Text style={[{ fontSize: 18, lineHeight: 28, fontWeight: 'bold' }]}>Reklamsız Deneyim</Text>
-          <Text style={[{ fontSize: 15, lineHeight: 20 }]}>
-            Kullanıcı deneyimini ön planda tuttuğumuz için uygulamamızda <Text style={[{ fontWeight: 'bold' }]}>reklam bulunmamaktadır</Text>.
-          </Text>
-          <Text style={[{ fontSize: 15, lineHeight: 20 }]}>
-            Amacımız, sizlere <Text style={[{ fontWeight: 'bold' }]}>sade, güvenli ve rahatsız etmeyen</Text> bir kullanım sunmaktır.
-          </Text>
-        </View>
-      </Surface>
-
-      <Surface style={[stylesSettings.surface]} elevation={5}>
-        <Text variant='titleMedium'>Katkıda Bulunanlar</Text>
-        <Divider style={[stylesSettings.divider, { marginBottom: 15 }]} />
-        <View
-          style={[
-            stylesSettings.rowbox,
-            {
-              backgroundColor: colors?.onSecondary,
-              padding: 5,
-              borderRadius: 6,
-              justifyContent: 'flex-start',
-              marginBottom: 10
-            }
-          ]}
-        >
-          <Avatar.Icon size={34} icon="brain" style={[{ marginLeft: 5 }]} />
-          <Text variant='titleMedium' style={[{ marginLeft: 10 }]}>Nazım Sucu</Text>
-          <Text variant='titleSmall' style={[{ marginLeft: 'auto', marginRight: 5 }]}>- Developer</Text>
-        </View>
-
-        <View
-          style={[
-            stylesSettings.rowbox,
-            {
-              backgroundColor: colors?.onSecondary,
-              padding: 5,
-              borderRadius: 6,
-              justifyContent: 'flex-start'
-            }
-          ]}
-        >
-          <Avatar.Icon size={34} icon="format-paint" style={[{ marginLeft: 5 }]} />
-          <Text variant='titleMedium' style={[{ marginLeft: 10 }]}>Y. Kaan Vural</Text>
-          <Text variant='titleSmall' style={[{ marginLeft: 'auto', marginRight: 5 }]}>- Designer</Text>
-        </View>
-      </Surface>
-
-      <Surface style={[stylesSettings.surface, { marginBottom: 50 }]} elevation={5}>
-        <Text variant='titleMedium'>Geliştirmek İçin</Text>
-        <Divider style={[stylesSettings.divider, { marginBottom: 15 }]} />
+    <ScrollView
+      style={[
+        stylesSettings.setting,
+        { backgroundColor: colors.surfaceVariant },
+      ]}
+    >
+      {/* -------------- GENEL BİLGİLENDİRME -------------- */}
+      <Surface
+        style={[
+          stylesSettings.surface,
+          {
+            borderRadius: 16,
+            marginVertical: 10,
+            padding: 16,
+          },
+        ]}
+        elevation={2}
+      >
         <View
           style={[
             stylesSettings.columnbox,
-            {
-              backgroundColor: colors?.onSecondary,
-              padding: 10,
-              borderRadius: 6,
-              justifyContent: 'center',
-              marginBottom: 10
-            }
+            { alignItems: 'center', marginBottom: 10 },
           ]}
         >
-          <IconButton
-            icon="github"
-            mode='contained-tonal'
-            iconColor={colors?.primary}
-            size={50}
-            onPress={() => Linking.openURL('https://github.com/nazms23/BankaSifreUygulamasi')}
+          <Text
+            variant="titleLarge"
+            style={{ fontWeight: 'bold', marginBottom: 6, textAlign: 'center' }}
+          >
+            Uygulamanın Amacı ve Bilgilendirme
+          </Text>
+          <View
+            style={{
+              width: 40,
+              height: 3,
+              backgroundColor: colors.primary,
+              borderRadius: 3,
+              marginBottom: 10,
+            }}
           />
-          <Text variant='titleSmall' style={[{ margin: 10 }]}>GitHub Linki</Text>
+          <Text style={{ fontSize: 15, lineHeight: 22, marginBottom: 6 }}>
+            Uygulamamızın amacı, şifrelerinizi ve kart bilgilerinizi güvenli,
+            düzenli ve kolay erişilebilir şekilde{' '}
+            <Text style={{ fontWeight: 'bold' }}>saklamanızı</Text> sağlamaktır.
+          </Text>
+          <Text style={{ fontSize: 15, lineHeight: 22, marginBottom: 6 }}>
+            Tüm veriler cihazınızın içinde{' '}
+            <Text style={{ fontWeight: 'bold' }}>şifrelenmiş biçimde</Text>{' '}
+            depolanır ve uygulama{' '}
+            <Text style={{ fontWeight: 'bold' }}>internete bağlanmaz</Text>. Bu
+            sayede bilgileriniz{' '}
+            <Text style={{ fontWeight: 'bold' }}>
+              yalnızca sizin cihazınızda kalır
+            </Text>{' '}
+            ve hiçbir şekilde dışarı aktarılmaz.
+          </Text>
+          <Text style={{ fontSize: 15, lineHeight: 22 }}>
+            Uygulamamız internete bağlanmaz, bu nedenle verileriniz cihazınızdan
+            dışarı çıkmaz ve hiçbir şekilde paylaşılmaz.
+          </Text>
+        </View>
+      </Surface>
+
+      {/* -------------- KART BİLGİLERİ -------------- */}
+      <Surface
+        style={[
+          stylesSettings.surface,
+          { borderRadius: 16, marginVertical: 10, padding: 16 },
+        ]}
+        elevation={2}
+      >
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <IconButton icon="credit-card-lock-outline" size={22} />
+          <Text variant="titleLarge" style={{ fontWeight: 'bold' }}>
+            Kart Bilgileri Hakkında
+          </Text>
+        </View>
+        <View
+            style={{
+              width: 40,
+              height: 3,
+              backgroundColor: colors.primary,
+              borderRadius: 3,
+              marginBottom: 10,
+            }}
+          />
+
+        <View
+          style={{
+            backgroundColor: colors.surfaceVariant,
+            padding: 10,
+            borderRadius: 10,
+          }}
+        >
+          <Text style={{ fontSize: 15, lineHeight: 22, marginBottom: 6 }}>
+            <Text style={{ fontWeight: 'bold' }}>Kart şifresi (PIN): </Text>
+            Zorunlu alandır ve cihazınızda{' '}
+            <Text style={{ fontWeight: 'bold' }}>şifrelenerek</Text> saklanır.
+          </Text>
+          <Text style={{ fontSize: 15, lineHeight: 22, marginBottom: 6 }}>
+            <Text style={{ fontWeight: 'bold' }}>
+              Kart numarası, son kullanma tarihi (SKT) ve CVC:
+            </Text>{' '}
+            Bu alanlar isteğe bağlıdır ve yalnızca{' '}
+            <Text style={{ fontWeight: 'bold' }}>kopyalama kolaylığı</Text>{' '}
+            sağlamak amacıyla saklanır. Ancak bu veriler{' '}
+            <Text style={{ fontWeight: 'bold' }}>şifrelenmez</Text>.
+          </Text>
+          <Text style={{ fontSize: 15, lineHeight: 22 }}>
+            Uygulamayı indirerek bu bilgilendirmeyi{' '}
+            <Text style={{ fontWeight: 'bold' }}>
+              okuduğunuzu ve kabul ettiğinizi
+            </Text>{' '}
+            beyan etmiş olursunuz.
+          </Text>
+        </View>
+      </Surface>
+
+      {/* -------------- AÇIK KAYNAK -------------- */}
+      <Surface
+        style={[
+          stylesSettings.surface,
+          { borderRadius: 16, marginVertical: 10, padding: 16 },
+        ]}
+        elevation={2}
+      >
+        <Text
+          variant="titleLarge"
+          style={{ fontWeight: 'bold', marginBottom: 6 }}
+        >
+          Açık Kaynak ve Katkı
+        </Text>
+        <View
+          style={{
+            width: 40,
+            height: 3,
+            backgroundColor: colors.primary,
+            borderRadius: 3,
+            marginBottom: 10,
+          }}
+        />
+        <Text style={{ fontSize: 15, lineHeight: 22, marginBottom: 6 }}>
+          Uygulamamız{' '}
+          <Text style={{ fontWeight: 'bold' }}>tamamen açık kaynak kodludur</Text>.
+        </Text>
+        <Text style={{ fontSize: 15, lineHeight: 22, marginBottom: 6 }}>
+          İsterseniz projemizin kodlarını{' '}
+          <Text style={{ fontWeight: 'bold' }}>GitHub sayfamızdan</Text>{' '}
+          inceleyebilir, önerilerinizi veya katkılarınızı paylaşabilirsiniz.
+        </Text>
+        <Text style={{ fontSize: 15, lineHeight: 22 }}>
+          Görüşlerinizi{' '}
+          <Text style={{ fontWeight: 'bold' }}>GitHub Konular (Issues)</Text>{' '}
+          bölümü veya{' '}
+          <Text style={{ fontWeight: 'bold' }}>Google Play yorumları</Text>{' '}
+          üzerinden iletebilirsiniz.
+        </Text>
+      </Surface>
+
+      {/* -------------- REKLAMSIZ DENEYİM -------------- */}
+      <Surface
+        style={[
+          stylesSettings.surface,
+          { borderRadius: 16, marginVertical: 10, padding: 16 },
+        ]}
+        elevation={2}
+      >
+        <Text
+          variant="titleLarge"
+          style={{ fontWeight: 'bold', marginBottom: 6 }}
+        >
+          Reklamsız Deneyim
+        </Text>
+        <View
+          style={{
+            width: 40,
+            height: 3,
+            backgroundColor: colors.primary,
+            borderRadius: 3,
+            marginBottom: 10,
+          }}
+        />
+        <Text style={{ fontSize: 15, lineHeight: 22, marginBottom: 6 }}>
+          Kullanıcı deneyimini ön planda tuttuğumuz için uygulamamızda{' '}
+          <Text style={{ fontWeight: 'bold' }}>reklam bulunmamaktadır</Text>.
+        </Text>
+        <Text style={{ fontSize: 15, lineHeight: 22 }}>
+          Amacımız, sizlere{' '}
+          <Text style={{ fontWeight: 'bold' }}>
+            sade, güvenli ve rahatsız etmeyen
+          </Text>{' '}
+          bir kullanım sunmaktır.
+        </Text>
+      </Surface>
+
+      {/* -------------- KATKIDA BULUNANLAR -------------- */}
+      <Surface
+        style={[
+          stylesSettings.surface,
+          { borderRadius: 16, marginVertical: 10, padding: 16 },
+        ]}
+        elevation={2}
+      >
+        <Text variant="titleLarge" style={{ fontWeight: 'bold', marginBottom: 6 }}>
+          Katkıda Bulunanlar
+        </Text>
+        <View
+          style={{
+            width: 40,
+            height: 3,
+            backgroundColor: colors.primary,
+            borderRadius: 3,
+            marginBottom: 10,
+          }}
+        />
+
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            backgroundColor: colors.surfaceVariant,
+            padding: 10,
+            borderRadius: 12,
+            marginBottom: 8,
+          }}
+        >
+          <Avatar.Icon size={40} icon="brain" />
+          <View style={{ marginLeft: 10 }}>
+            <Text variant="titleMedium">Nazım Sucu</Text>
+            <Text
+              variant="bodySmall"
+              style={{ color: colors.onSurfaceVariant }}
+            >
+              - Developer
+            </Text>
+          </View>
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            backgroundColor: colors.surfaceVariant,
+            padding: 10,
+            borderRadius: 12,
+          }}
+        >
+          <Avatar.Icon size={40} icon="format-paint" />
+          <View style={{ marginLeft: 10 }}>
+            <Text variant="titleMedium">Y. Kaan Vural</Text>
+            <Text
+              variant="bodySmall"
+              style={{ color: colors.onSurfaceVariant }}
+            >
+              - Designer
+            </Text>
+          </View>
+        </View>
+      </Surface>
+
+      {/* -------------- GITHUB LINK -------------- */}
+      <Surface
+        style={[
+          stylesSettings.surface,
+          { borderRadius: 16, marginVertical: 10, padding: 16, marginBottom: 50 },
+        ]}
+        elevation={2}
+      >
+        <Text
+          variant="titleLarge"
+          style={{ fontWeight: 'bold', marginBottom: 6 }}
+        >
+          Geliştirmeye Katılın
+        </Text>
+        <View
+          style={{
+            width: 40,
+            height: 3,
+            backgroundColor: colors.primary,
+            borderRadius: 3,
+            marginBottom: 10,
+          }}
+        />
+
+        <View
+          style={{
+            alignItems: 'center',
+            backgroundColor: colors.surfaceVariant,
+            padding: 16,
+            borderRadius: 10,
+          }}
+        >
+          <Button
+            icon="github"
+            mode="contained-tonal"
+            onPress={() =>
+              Linking.openURL('https://github.com/nazms23/BankaSifreUygulamasi')
+            }
+          >
+            GitHub Sayfasını Aç
+          </Button>
+          <Text variant="bodySmall" style={{ marginTop: 8 }}>
+            Projenin kaynak kodlarına buradan ulaşabilirsiniz.
+          </Text>
         </View>
       </Surface>
     </ScrollView>
-  )
-}
+  );
+};
 
-export default Bilgilendirme
+export default Bilgilendirme;
