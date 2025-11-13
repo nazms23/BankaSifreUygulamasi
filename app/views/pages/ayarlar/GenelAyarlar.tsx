@@ -11,7 +11,7 @@ const GenelAyarlar = () => {
 
   return (
     <ScrollView style={stylesSettings.setting}>
-      <Surface style={stylesSettings.surface} elevation={5}>
+      {/* <Surface style={stylesSettings.surface} elevation={5}>
           <Text variant="titleMedium">Görünüm</Text>
          <Divider style={stylesSettings.divider} />
           <View style={stylesSettings.rowbox}>
@@ -37,7 +37,7 @@ const GenelAyarlar = () => {
               <Text  variant="titleSmall">Yazı</Text>
             </View>
           </View>
-      </Surface>
+      </Surface> */}
       <Surface style={stylesSettings.surface} elevation={5}>
           <Text  variant="titleMedium">Tema</Text>
          <Divider style={stylesSettings.divider} />
@@ -67,7 +67,8 @@ const GenelAyarlar = () => {
   
           </View>
       </Surface>
-        <Surface style={[stylesSettings.surface,{marginBottom: 50}]} elevation={5}>
+      {/* 
+        <Surface style={stylesSettings.surface} elevation={5}>
           <Text  variant="titleMedium">Boyutlandırma</Text>
          <Divider style={stylesSettings.divider} />
           <View style={stylesSettings.rowbox}>
@@ -83,18 +84,18 @@ const GenelAyarlar = () => {
              </View>
            
             <View style={stylesSettings.columnbox}>
-              <IconButton style={settings.fontSize == FontSizes.small && stylesSettings.selected}
+              <IconButton style={settings.fontSize == FontSizes.default && stylesSettings.selected}
                 mode='contained'
                 icon="format-font-size-decrease"
                 iconColor={colors?.onSecondaryContainer}
                 size={50}
                
-                onPress={() => setFunctions.setFontSize(FontSizes.small)}
+                onPress={() => setFunctions.setFontSize(FontSizes.default)}
               />
               <Text  variant="titleSmall">Küçük Yazı</Text>
             </View>
           </View>
-      </Surface>
+      </Surface> */}
     </ScrollView>
   )
 }

@@ -1,5 +1,5 @@
-import { View, Image, Pressable } from 'react-native'
-import React, { useContext, useState } from 'react'
+import { View, Image, Pressable, Animated } from 'react-native'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import {Surface, useTheme, Text,Card, IconButton} from 'react-native-paper'
 import { stylesItems } from '../../utils/styles'
 import { KartSifreler, SelectedMode } from '../../utils/models'
@@ -20,20 +20,72 @@ const KartListItem = ({kart,onPress,selectedMode}: KartListItemProps) => {
   
   const {setFunctions, secretKey} = useContext(PasswordsContext);
   const {showNotification} = useContext(NotificationContext)
+
+  const animatedHeight = useRef(new Animated.Value(0)).current
+  const animatedOpacity = useRef(new Animated.Value(0)).current
+
+  useEffect(() => {
+    if (isExpanded) {
+      Animated.parallel([
+        Animated.timing(animatedHeight, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: false,
+        }),
+        Animated.timing(animatedOpacity, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: false,
+        }),
+      ]).start()
+    } else {
+      Animated.parallel([
+        Animated.timing(animatedHeight, {
+          toValue: 0,
+          duration: 250,
+          useNativeDriver: false,
+        }),
+        Animated.timing(animatedOpacity, {
+          toValue: 0,
+          duration: 200,
+          useNativeDriver: false,
+        }),
+      ]).start()
+    }
+  }, [isExpanded])
+
+  // yüksekliği animasyona bağlayalım
+  const heightInterpolate = animatedHeight.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 230], // buradaki 170'i içerik yüksekliğine göre ayarlayabilirsin
+  })
+
   return (
-    <Pressable style={[{flex: 1}, {backgroundColor: colors?.background,marginTop: 10,borderRadius:12}]} onPress={onPress}>
-      <Card style={[{marginTop:0,marginBottom:0, paddingBottom: 0, paddingTop: 0,}]}>
-        <Surface style={[stylesItems.surface, {
-          borderWidth: selectedMode === SelectedMode.Edit || selectedMode === SelectedMode.Delete ? 1 : undefined, 
-            boxShadow: selectedMode == SelectedMode.Edit ? '0px 1px 5px #fcefb4' : selectedMode === SelectedMode.Delete ? ' 0px 1px 5px #ef233c': undefined, 
-            borderColor: selectedMode == SelectedMode.Edit ? "#ffd60a" : selectedMode === SelectedMode.Delete ? "#ef233c" : undefined
-        }]} elevation={5}>
-            <View style={stylesItems.imagecont}><Image style={stylesItems.image}  source={kart.kart.gorsel} /></View>
-            <Text style={stylesItems.surfaceText}  variant="titleMedium">{setFunctions.decryptPassword(kart.sifre, secretKey)}</Text>
-            <IconButton  style={stylesItems.acbut} icon={isExpanded ? "chevron-up" : "chevron-down"} mode="outlined" onPress={() => {if (selectedMode === SelectedMode.None) setIsExpanded(prev => !prev)}}></IconButton>
-        </Surface>
-      
-        {isExpanded && <Card.Content>
+    <Pressable style={[{flex: 1}, {backgroundColor: colors?.background}]} onPress={onPress}>
+      <Card style={[{marginTop:10,marginBottom:10, paddingBottom: 0, paddingTop: 0}]}>
+        
+        <View style={[stylesItems.itemcont, {marginTop: 0}]}>
+          
+            <Surface style={[stylesItems.surface, {
+              borderWidth: selectedMode === SelectedMode.Edit || selectedMode === SelectedMode.Delete ? 1 : undefined, 
+                boxShadow: selectedMode == SelectedMode.Edit ? '0px 1px 5px #fcefb4' : selectedMode === SelectedMode.Delete ? ' 0px 1px 5px #ef233c': undefined, 
+                borderColor: selectedMode == SelectedMode.Edit ? "#ffd60a" : selectedMode === SelectedMode.Delete ? "#ef233c" : undefined
+            }]} elevation={5}>
+                <View style={stylesItems.imagecont}><Image style={stylesItems.image}  source={kart.kart.gorsel} /></View>
+                <Text style={stylesItems.surfaceText}  variant="titleMedium">{setFunctions.decryptPassword(kart.sifre, secretKey)}</Text>
+                <IconButton  style={stylesItems.acbut} icon={isExpanded ? "arrow-up" : "arrow-down"} mode="outlined" onPress={() => {if (selectedMode === SelectedMode.None) setIsExpanded(prev => !prev)}}></IconButton>
+            </Surface>
+        </View>
+          
+        <Animated.View
+          style={{
+            height: heightInterpolate,
+            opacity: animatedOpacity,
+            overflow: 'hidden',
+          }}
+        >
+
+        <Card.Content>
           <View style={[stylesItems.kartInfo,{backgroundColor: colors?.onSecondary,flexDirection: 'column', alignItems:'stretch'}]}><Text style={[{marginBottom: 3}]}variant="titleSmall">Açıklama</Text><View style={[stylesItems.kartInfoAlt,{backgroundColor: colors?.background}]}><Text variant="labelMedium">{kart.aciklama}</Text></View></View>
           <Pressable
             onPress={async () => {
@@ -73,7 +125,9 @@ const KartListItem = ({kart,onPress,selectedMode}: KartListItemProps) => {
             <View style={[stylesItems.kartInfo,{backgroundColor: colors?.onSecondary}]}><Text variant="titleSmall">Kart CVV</Text><View style={[stylesItems.kartInfoAlt,{backgroundColor: colors?.background}]}><Text variant="labelMedium">{kart.kartCVC}</Text></View></View>
           
           </Pressable>
-        </Card.Content>}
+        </Card.Content>
+
+        </Animated.View>
       </Card>
     </Pressable>
   )
