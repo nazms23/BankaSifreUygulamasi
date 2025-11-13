@@ -108,7 +108,7 @@ const KartFormModal = ({ isModalOpen, setIsModalOpen, kart, setKart}: KartFormMo
                                     maxLength={5}
                                 />
                                 <TextInput 
-                                    label={"CVV Giriniz"}
+                                    label={"CVC Giriniz"}
                                     value={kart.kartCVC}
                                     onChangeText={(text) => setKart((prev) => ({...prev, kartCVC: text}))}
                                     mode="outlined"

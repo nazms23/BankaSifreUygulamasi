@@ -122,7 +122,7 @@ const KartListItem = ({kart,onPress,selectedMode}: KartListItemProps) => {
             }}
             style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}
           >
-            <View style={[stylesItems.kartInfo,{backgroundColor: colors?.onSecondary}]}><Text variant="titleSmall">Kart CVV</Text><View style={[stylesItems.kartInfoAlt,{backgroundColor: colors?.background}]}><Text variant="labelMedium">{kart.kartCVC}</Text></View></View>
+            <View style={[stylesItems.kartInfo,{backgroundColor: colors?.onSecondary}]}><Text variant="titleSmall">Kart CVC</Text><View style={[stylesItems.kartInfoAlt,{backgroundColor: colors?.background}]}><Text variant="labelMedium">{kart.kartCVC}</Text></View></View>
           
           </Pressable>
         </Card.Content>
