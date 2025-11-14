@@ -62,7 +62,7 @@ const GenelAyarlar = () => {
                
                 onPress={() => setFunctions.setTheme(Theme.light)}
               />
-              <Text  variant="titleSmall">Açık</Text>
+              <Text  variant="titleSmall">Aydınlık</Text>
             </View>
   
           </View>

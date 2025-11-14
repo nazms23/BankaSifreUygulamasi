@@ -74,6 +74,13 @@ const Bilgilendirme = () => {
             Uygulamamız internete bağlanmaz, bu nedenle verileriniz cihazınızdan
             dışarı çıkmaz ve hiçbir şekilde paylaşılmaz.
           </Text>
+          <Text style={{ fontSize: 15, lineHeight: 22 }}>
+            Uygulamayı indirerek bu bilgilendirmeyi{' '}
+            <Text style={{ fontWeight: 'bold' }}>
+              okuduğunuzu ve kabul ettiğinizi
+            </Text>{' '}
+            beyan etmiş olursunuz.
+          </Text>
         </View>
       </Surface>
 
@@ -122,13 +129,7 @@ const Bilgilendirme = () => {
             sağlamak amacıyla saklanır. Ancak bu veriler{' '}
             <Text style={{ fontWeight: 'bold' }}>şifrelenmez</Text>.
           </Text>
-          <Text style={{ fontSize: 15, lineHeight: 22 }}>
-            Uygulamayı indirerek bu bilgilendirmeyi{' '}
-            <Text style={{ fontWeight: 'bold' }}>
-              okuduğunuzu ve kabul ettiğinizi
-            </Text>{' '}
-            beyan etmiş olursunuz.
-          </Text>
+
         </View>
       </Surface>
 
@@ -240,14 +241,14 @@ const Bilgilendirme = () => {
             marginBottom: 8,
           }}
         >
-          <Avatar.Icon size={40} icon="brain" />
+          <Avatar.Icon size={40} icon="clipboard" />
           <View style={{ marginLeft: 10 }}>
             <Text variant="titleMedium">Nazım Sucu</Text>
             <Text
               variant="bodySmall"
               style={{ color: colors.onSurfaceVariant }}
             >
-              - Developer
+              - Clipboard Manager
             </Text>
           </View>
         </View>
@@ -261,14 +262,15 @@ const Bilgilendirme = () => {
             borderRadius: 12,
           }}
         >
-          <Avatar.Icon size={40} icon="format-paint" />
+          {/* <Avatar.Icon size={40} icon="format-paint" />*/}
+          <Avatar.Icon size={40} icon="brain" />
           <View style={{ marginLeft: 10 }}>
-            <Text variant="titleMedium">Y. Kaan Vural</Text>
+            <Text variant="titleMedium">ChatGPT</Text>
             <Text
               variant="bodySmall"
               style={{ color: colors.onSurfaceVariant }}
             >
-              - Designer
+              - Designer, Reviser, Developer, Maintainer
             </Text>
           </View>
         </View>
