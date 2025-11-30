@@ -40,7 +40,6 @@ const Banka = () => {
                 setFunctions.setBankaSifreSil(i.item.id)
               })
             }
-            
           }} />}
           style={[{flex:0}, {backgroundColor: colors?.background} ] }
           contentContainerStyle={{padding:10,paddingBottom:120}}

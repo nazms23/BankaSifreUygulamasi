@@ -241,14 +241,14 @@ const Bilgilendirme = () => {
             marginBottom: 8,
           }}
         >
-          <Avatar.Icon size={40} icon="clipboard" />
+          <Avatar.Icon size={40} icon="brain" />
           <View style={{ marginLeft: 10 }}>
             <Text variant="titleMedium">Nazım Sucu</Text>
             <Text
               variant="bodySmall"
               style={{ color: colors.onSurfaceVariant }}
             >
-              - Clipboard Manager
+              - Developer
             </Text>
           </View>
         </View>
@@ -265,12 +265,12 @@ const Bilgilendirme = () => {
           {/* <Avatar.Icon size={40} icon="format-paint" />*/}
           <Avatar.Icon size={40} icon="brain" />
           <View style={{ marginLeft: 10 }}>
-            <Text variant="titleMedium">ChatGPT</Text>
+            <Text variant="titleMedium">Y. Kaan Vural</Text>
             <Text
               variant="bodySmall"
               style={{ color: colors.onSurfaceVariant }}
             >
-              - Designer, Reviser, Developer, Maintainer
+              - Designer
             </Text>
           </View>
         </View>

@@ -64,7 +64,34 @@ const GenelAyarlar = () => {
               />
               <Text  variant="titleSmall">Aydınlık</Text>
             </View>
-  
+          </View>
+      </Surface>
+      <Surface style={stylesSettings.surface} elevation={5}>
+          <Text  variant="titleMedium">Şifreleri Sansürle</Text>
+         <Divider style={stylesSettings.divider} />
+          <View style={stylesSettings.rowbox}>
+             <View style={stylesSettings.columnbox}>
+                <IconButton style={!settings.censorable && stylesSettings.selected}
+                  mode='contained'
+                  icon="eye-outline"
+                  iconColor={colors?.onSurface}
+                  size={50}
+                  onPress={() => setFunctions.setCensorable(false)}
+                />
+                <Text  variant="titleSmall">Hayır</Text>
+             </View>
+           
+            <View style={stylesSettings.columnbox}>
+              <IconButton style={settings.censorable && stylesSettings.selected}
+                mode='contained'
+                icon="eye-off"
+                iconColor={colors?.shadow}
+                size={50}
+               
+                onPress={() => setFunctions.setCensorable(true)}
+              />
+              <Text  variant="titleSmall">Evet</Text>
+            </View>
           </View>
       </Surface>
       {/* 

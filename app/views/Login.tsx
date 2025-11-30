@@ -90,7 +90,7 @@ const Login = () => {
       <View style={[stylesLogin.container, {backgroundColor: colors?.background}]} >
         <PageLoading loading={isLoading} />
         <Surface style={stylesLogin.surface} elevation={5}>
-          <Text style={{fontWeight:900}} variant='headlineSmall'>BankApp</Text>
+          <Text style={{fontWeight:900}} variant='headlineSmall'>Banka Şifre Tutucu</Text>
           <TextInput
             style={stylesLogin.input}
             label={"Açmak için şifreni gir."}

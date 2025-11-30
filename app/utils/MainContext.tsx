@@ -17,7 +17,8 @@ interface LoginType {
 };
 interface SettingsType{
     fontSize: FontSizes,
-    theme: Theme
+    theme: Theme,
+    censorable: boolean
 }
 interface SetFunctionsType{
     setIsLogined: (isLogined: boolean) => Promise<void>,
@@ -25,6 +26,7 @@ interface SetFunctionsType{
     setLoginMethod: (loginMethod: LoginMethods) => Promise<void>,
     setFontSize: (fontSize: FontSizes) => Promise<void>,
     setTheme: (theme: Theme) => Promise<void>,
+    setCensorable: (censorable: boolean) => Promise<void>,
     resetAllSettings: () => Promise<void>
 }
 
@@ -37,7 +39,8 @@ const MainContextDefault: MainContextType = {
     },
     settings: {
         fontSize: FontSizes.default,
-        theme: Theme.light
+        theme: Theme.light,
+        censorable: false
     },
     setFunctions: {
         setIsLogined: async () => {},
@@ -45,6 +48,7 @@ const MainContextDefault: MainContextType = {
         setLoginMethod: async () => {},
         setFontSize: async () => {},
         setTheme: async () => {},
+        setCensorable: async () => {},
         resetAllSettings: async () => {}
     }
 }
@@ -104,6 +108,19 @@ export const MainContextProvider = ({children}: {children: ReactNode}) => {
         }));
     }
 
+    async function getCensorable(): Promise<boolean> {
+        const value = await AsyncStorage.getItem('censorable')
+        return  value == "true" ? true : false
+    }
+
+    async function setCensorable(censorable: boolean) {
+        await AsyncStorage.setItem('censorable', censorable ? "true" : "false");
+        setMainContextState(prev => ({
+            ...prev,
+            settings: { ...prev.settings, censorable },
+        }));
+    }
+
     async function setIsLogined(isLogined: boolean) {
         setMainContextState(prev => ({
             ...prev,
@@ -121,7 +138,7 @@ export const MainContextProvider = ({children}: {children: ReactNode}) => {
     }
 
     async function getAllSetting() {
-        const [sPassword, loginMethod, sFontSize, sTheme]: [string,LoginMethods,FontSizes,Theme] = await Promise.all([getPassword(),getLoginMethod(),getFontSize(),getTheme()])
+        const [sPassword, loginMethod, sFontSize, sTheme, sCensorable]: [string,LoginMethods,FontSizes,Theme, boolean] = await Promise.all([getPassword(),getLoginMethod(),getFontSize(),getTheme(),getCensorable()]);
 
         const MainContextData: MainContextType = {
             isAllLoaded: true,
@@ -132,7 +149,8 @@ export const MainContextProvider = ({children}: {children: ReactNode}) => {
             },
             settings: {
                 fontSize: sFontSize,
-                theme: sTheme
+                theme: sTheme,
+                censorable: sCensorable
             },
             setFunctions: {
                 setPassword,
@@ -140,7 +158,8 @@ export const MainContextProvider = ({children}: {children: ReactNode}) => {
                 setTheme,
                 setIsLogined,
                 setLoginMethod,
-                resetAllSettings
+                resetAllSettings,
+                setCensorable
             }
         }
 
